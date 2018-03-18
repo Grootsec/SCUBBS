@@ -37,7 +37,7 @@
         })
       },
       checkForm(){
-
+        
       },
       resetForm(){
         this.formName.user = '';
