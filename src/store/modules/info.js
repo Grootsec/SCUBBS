@@ -1,6 +1,7 @@
 const user = {
     state: {
       name: '', // 用户名字
+      no: '', // 用户编号
       nickname: '',// Nickname
       college: '', // 用户学院
       cookies:'', // cookies
