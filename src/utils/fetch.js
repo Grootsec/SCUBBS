@@ -1,1 +1,0 @@
-import baseurl from "../config/env"
