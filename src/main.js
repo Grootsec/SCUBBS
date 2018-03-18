@@ -6,9 +6,13 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store/index'
+import VueResource from 'vue-resource'
 Vue.use(ElementUI);
-
+Vue.use(VueResource);
 Vue.config.productionTip = false;
+// 使用application/x-www-form-urlencoded作为默认请求格式
+Vue.http.options.emulateJSON = true;
+
 
 /* eslint-disable no-new */
 new Vue({

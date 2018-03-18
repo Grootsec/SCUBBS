@@ -94,7 +94,7 @@
     data() {
       const item = {
         date: '2016-05-02',
-        name: this.$store.state.userinfo.name,
+        name: this.$store.state.info.name,
         address: '上海市普陀区金沙江路 1518 弄'
       };
       return {
