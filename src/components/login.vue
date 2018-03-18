@@ -34,6 +34,7 @@
       submitForm(){
         Axios.post('',{zjh: this.formName.user, mm: this.formName.password}).then(function(responce){
         // todo: $store 存储内容
+        this.$store.commit("login", responce);
         })
       },
       checkForm(){

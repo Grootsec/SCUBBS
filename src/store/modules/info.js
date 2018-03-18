@@ -1,6 +1,6 @@
-const user = {
+const userinfo = {
     state: {
-      name: '', // 用户名字
+      name: '测试', // 用户名字
       no: '', // 用户编号
       nickname: '',// Nickname
       college: '', // 用户学院
@@ -8,5 +8,16 @@ const user = {
       avatar: '', // 头像地址
       introduction: '', // 简介
       roles: [], // 角色
+    },
+    mutations: {
+      login(state, info){
+        state.name = info.name,
+        state.no = info.no,
+        state.nickname = info.nickname,
+        state.college = info.college,
+        state.avatar = info.avatar,
+        state.introduction = info.introduction,
+        state.roles.push(info.roles)
+      }
     }
 }
