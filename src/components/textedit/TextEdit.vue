@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
     <Input v-model="postcontent" type="textarea" :autosize="{minRows: 4}" placeholder="Enter something..."></Input>
     <Button type="primary" shape="circle" icon="at" v-on:click=""></Button>
   </div>
