@@ -8,18 +8,21 @@
         <Content :style="{padding: '0 50px'}">
           <Card>
             <div>
+              <label> 组织名称&nbsp;&nbsp;&nbsp;</label>
               <Input v-model="OrganizationName" placeholder="Enter something..." clearable style="width: 200px"></Input>
             </div>
             <div>
+              <label> 负责人名字</label>
               <Input v-model="OrganizationHeadName" placeholder="Enter something..." clearable style="width: 200px"></Input>
             </div>
             <div>
+              <label> 组织所属学院</label>
               <Input v-model="College" placeholder="Enter something..." clearable style="width: 200px"></Input>
             </div>
-            <Button type="success" long v-on:click="submit">SUBMIT</Button>
+            <Button type="success"  v-on:click="submit">SUBMIT</Button>
           </Card>
         </Content>
-        <Footer class="layout-footer-center">2018 &copy; grootsec.org</Footer>
+        <Footer class="layout-footer-center">2018 &copy; <a href="http://grootsec.org">grootsec.org</a></Footer>
       </Layout>
     </div>
   </div>

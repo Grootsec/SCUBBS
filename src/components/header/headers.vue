@@ -19,7 +19,6 @@
             <Badge dot>
                 <Avatar icon="person" />
             </Badge>
-
             个人设置
             </router-link>
         </MenuItem>
