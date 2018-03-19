@@ -37,7 +37,7 @@
         })
       },
       checkForm(){
-        
+
       },
       resetForm(){
         this.formName.user = '';
@@ -57,6 +57,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,.8);
+    text-align: center;
   }
   .loginPage{
     position: absolute;

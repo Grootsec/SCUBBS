@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import login from '@/components/login'
 import index from '@/components/index'
+import ApplyOrganization from '@/components/ApplyOrganization'
 Vue.use(Router)
 
 export default new Router({
@@ -21,6 +22,11 @@ export default new Router({
       path: '/',
       name: 'index',
       component: index
+    },
+    {
+      path: '/ApplyOrganization',
+      name: 'ApplyOrganization',
+      component: ApplyOrganization
     }
 
   ]

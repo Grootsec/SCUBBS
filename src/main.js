@@ -7,8 +7,16 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store/index'
 import VueResource from 'vue-resource'
+import VueBlu from 'vue-blu'
+import 'vue-blu/dist/css/vue-blu.min.css'
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
+
+
+Vue.use(VueBlu)
 Vue.use(ElementUI);
 Vue.use(VueResource);
+Vue.use(iView);
 Vue.config.productionTip = false;
 // 使用application/x-www-form-urlencoded作为默认请求格式
 Vue.http.options.emulateJSON = true;
