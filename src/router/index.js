@@ -4,7 +4,9 @@ import HelloWorld from '@/components/HelloWorld'
 import login from '@/components/login'
 import index from '@/components/index'
 import ApplyOrganization from '@/components/ApplyOrganization'
-Vue.use(Router)
+
+const PersonInfo = r => require.ensure([], () => r(require('../components/PersonInfo')), 'PersonInfo');
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -14,8 +16,8 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path:'/login',
-      name:'ttttt',
+      path: '/login',
+      name: 'ttttt',
       component: login
     },
     {
@@ -27,6 +29,11 @@ export default new Router({
       path: '/ApplyOrganization',
       name: 'ApplyOrganization',
       component: ApplyOrganization
+    },
+    {
+      path: '/setting',
+      name: '/setting',
+      component: PersonInfo
     }
 
   ]

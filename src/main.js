@@ -13,7 +13,7 @@ import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
 
-Vue.use(VueBlu)
+Vue.use(VueBlu);
 Vue.use(ElementUI);
 Vue.use(VueResource);
 Vue.use(iView);

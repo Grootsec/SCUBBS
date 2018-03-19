@@ -7,5 +7,5 @@ const store = new Vuex.Store({
     modules: {
       info: userinfo,
     }
-  })
+  });
 export default store;
