@@ -20,7 +20,8 @@
               <Avatar :src="avatar" v-if="avatar"/>
                 <Avatar icon="person" v-else="avatar"/>
             </Badge>
-              {{name}}
+              <span v-if="nickname">{{$store.state.info.nickname}}</span>
+              <span v-else="nickname">{{$store.state.info.name}}</span>
             </router-link>
         </MenuItem>
         </span>
@@ -34,8 +35,13 @@
       return {
         theme1: 'dark',
         name: this.$store.state.info.name,
-        avatar: this.$store.state.info.avatar,
+        nickname: this.$store.state.info.nickname,
       }
+    },
+    computed:{
+        avatar: function(){
+          return this.$store.state.info.avatar
+        }
     }
   }
 </script>

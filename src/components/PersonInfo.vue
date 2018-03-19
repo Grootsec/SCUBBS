@@ -4,7 +4,7 @@
       <headers/>
       <Row style="height: 200px">
         <Col span="6"><div>{{username}}</div></Col>
-        <Col span="6"><div >test</div></Col>
+        <Col span="6"><div >{{college}}</div></Col>
         <Col span="6"></Col>
         <Col span="6"></Col>
       </Row>
@@ -21,6 +21,7 @@
       return {
         username: this.$store.state.info.name,
         nickname: this.$store.state.info.nickname,
+        college: this.$store.state.info.college,
         avatar: this.$store.state.info.avatar,
         new_message: [],
         new_secret_message : []
@@ -30,7 +31,9 @@
       headers
     },
     mounted() {
-      this.getUserInfo()
+      this.getUserInfo();
+      // let responce = {"name":"孔旻昊", "nickname":"", "avatar":"https://i.loli.net/2017/08/21/599a521472424.jpg"};
+      // this.$store.commit("login", responce);
     },
     methods: {
       getUserInfo() {

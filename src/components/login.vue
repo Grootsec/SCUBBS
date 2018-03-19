@@ -33,7 +33,12 @@
       submitForm(){
         this.$http.post('',{zjh: this.formName.user, mm: this.formName.password}).then(function(responce){
         // todo: $store 存储内容
-        this.$store.commit("login", responce);
+          if (responce.code===0){
+            this.$store.commit("login", responce);
+          }
+          else{
+            // error parse
+          }
         })
       },
       checkForm(){
