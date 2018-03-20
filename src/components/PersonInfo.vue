@@ -3,25 +3,30 @@
     <Layout>
       <headers/>
       <Content :style="{padding: '0 50px'}">
-      <Row style="height: 200px">
-        <Col span="6">
-        <div>姓名: {{username}}</div>
-        </Col>
-        <Col span="6">
-        <div>学院: {{college}}</div>
-        </Col>
-      </Row>
-      <div class="border"></div>
-      <Row>
-        <div>
-          个人简介:
-          {{introduction}}
-        </div>
-      </Row>
-      <div class="border"></div>
-      <Row>
-        <h3>动态</h3>
-      </Row>
+        <Row style="height: 200px">
+          <Col span="6">
+          <div>姓名: {{username}}</div>
+          </Col>
+          <Col span="6">
+          <div>学院: {{college}}</div>
+          </Col>
+        </Row>
+        <div class="border"></div>
+        <Row>
+          <div>
+            个人简介:
+            {{introduction}}
+          </div>
+        </Row>
+        <div class="border"></div>
+        <Row>
+          <h3>动态</h3>
+          <timeline-bur>
+            <timeline-item-bur :date="item.date" v-for="(item, index) of new_dynamic" type="primary">
+              <p>{{item.content}}</p>
+            </timeline-item-bur>
+          </timeline-bur>
+        </Row>
       </Content>
       <Footer class="layout-footer-center">2018 &copy; <a href="http://grootsec.org">grootsec.org</a></Footer>
     </Layout>
@@ -41,7 +46,11 @@
         avatar: this.$store.state.info.avatar,
         introduction: this.$store.state.info.introduction,
         new_message: [],
-        new_secret_message: []
+        new_secret_message: [],
+        new_dynamic: [{"date": "2分钟前", "content": "逼王真是强"}, {"date": "2分钟前", "content": "逼王真是强"}, {
+          "date": "1996/1/2",
+          "content": "逼王诞生于云南"
+        }, {"date": "2分钟前", "content": "逼王真是强"}]
       }
     },
     components: {
@@ -92,6 +101,7 @@
   .layout-footer-center {
     text-align: center;
   }
+
   .border {
     border: 1px solid #e9eaec;
     height: 1px;
