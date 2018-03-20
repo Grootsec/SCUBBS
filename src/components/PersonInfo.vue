@@ -2,6 +2,7 @@
   <div class="layout">
     <Layout>
       <headers/>
+      <Content :style="{padding: '0 50px'}">
       <Row style="height: 200px">
         <Col span="6">
         <div>姓名: {{username}}</div>
@@ -20,9 +21,9 @@
       <div class="border"></div>
       <Row>
         <h3>动态</h3>
-
       </Row>
-
+      </Content>
+      <Footer class="layout-footer-center">2018 &copy; <a href="http://grootsec.org">grootsec.org</a></Footer>
     </Layout>
   </div>
 </template>

@@ -2,7 +2,7 @@
   <div>
     <Input v-model="postcontent" type="textarea" :autosize="{minRows: 4}" placeholder="Enter something..."></Input>
     <Button type="primary" shape="circle" icon="at" @click="handleRender"></Button>
-    <Button type="primary" shape="circle" icon="heart" @click="test"></Button>
+    <Button type="primary" shape="circle" icon="at" @click="submit"></Button>
   </div>
 </template>
 
@@ -13,26 +13,27 @@
     data() {
       return {
         postcontent: "",
+        hiddencontent: "",
         value: '',
         addresslist: [
           {
-            value: 'new york',
-            label: 'New York'
+            value: 'newyork',
+            label: 'NewYork'
           },
           {
-            value: 'Sydney',
+            value: 'sydney',
             label: 'Sydney'
           },
           {
-            value: 'Ottawa',
+            value: 'ottawa',
             label: 'Ottawa'
           },
           {
-            value: 'Paris',
+            value: 'paris',
             label: 'Paris'
           },
           {
-            value: 'Canberra',
+            value: 'canberra',
             label: 'Canberra'
           }],
         address: ""
@@ -50,19 +51,33 @@
               on: {
                 ontest: (val) => {
                   this.value = val;
-                  
+                  let name = "";
+                  this.addresslist.forEach(function (item) {
+                    if (item.value === val) {
+                      name = item.label;
+                    }
+                  });
+                  this.postcontent += "@" + name + " ";
+                  this.hiddencontent += "@" + val + " ";
                 }
               }
             })
           }
         })
       },
-      test() {
-        console.log(this.value)
+      submit(){
+        console.log(this.submitcontent);
       }
     },
     components: {
       AddressSelect
+    },
+    computed: {
+      submitcontent() {
+        let content = this.postcontent;
+        content = content.replace(/@(.*?) /g, "");
+        return this.hiddencontent + content;
+      }
     },
   }
 </script>
