@@ -11,7 +11,7 @@ import VueBlu from 'vue-blu'
 import 'vue-blu/dist/css/vue-blu.min.css'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
-
+import AddressSelect from './components/AddressSelect/AddressSelect'
 
 Vue.use(VueBlu);
 Vue.use(ElementUI);
@@ -20,6 +20,7 @@ Vue.use(iView);
 Vue.config.productionTip = false;
 // 使用application/x-www-form-urlencoded作为默认请求格式
 Vue.http.options.emulateJSON = true;
+Vue.component('AddressSelect', AddressSelect);
 
 
 /* eslint-disable no-new */

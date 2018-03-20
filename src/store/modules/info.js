@@ -6,7 +6,7 @@ const userinfo = {
       college: '软件学院', // 用户学院
       cookies:'', // cookies
       avatar: '', // 头像地址
-      introduction: '', // 简介
+      introduction: '测试', // 简介
       roles: [], // 角色
     },
     mutations: {
