@@ -31,7 +31,7 @@
     },
     methods: {
       submitForm(){
-        this.$http.post('',{zjh: this.formName.user, mm: this.formName.password}).then(function(responce){
+        this.$http.post('/api/v1/login',{zjh: this.formName.user, mm: this.formName.password}).then(function(responce){
         // todo: $store 存储内容
           if (responce.code===0){
             this.$store.commit("login", responce);
