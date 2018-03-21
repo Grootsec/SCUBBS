@@ -2,6 +2,7 @@
   <div>
         <Content :style="{padding: '0 50px'}">
             <div>消息......</div>
+            <slot></slot>
         </Content>
   </div>
 </template>
@@ -12,6 +13,9 @@
     name: "content",
     component:{
       headers
+    },
+    mounted(){
+
     }
   }
 </script>

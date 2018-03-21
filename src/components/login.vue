@@ -32,10 +32,17 @@
     methods: {
       submitForm(){
         this.$http.post('/api/v1/login',{zjh: this.formName.user, mm: this.formName.password}).then(function(responce){
+          console.log(responce);
+          responce = responce.body;
         // todo: $store 存储内容
-          if (responce.code===0){
+          if (responce.code==0){
+            this.$Message.success({
+              content: "登录成功",
+              duration: 0.3,
+              closable: true
+            });
             this.$store.commit("login", responce);
-            this.$router.push('/index')
+            this.$router.push('/');
           }
           else{
             // error parse
@@ -53,6 +60,13 @@
       resetForm(){
         this.formName.user = '';
         this.formName.password=''
+      }
+    },
+    mounted(){
+      if (document.cookie.indexOf("myStrCookie=")===-1){
+
+      }else{
+        this.$route.push('/')
       }
     }
   }

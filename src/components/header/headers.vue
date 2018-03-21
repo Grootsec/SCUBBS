@@ -44,6 +44,11 @@
       avatar: function () {
         return this.$store.state.info.avatar
       }
+    },
+    mounted(){
+     this.$http.get("/api/v1/fetchInfo").then(function(){
+       
+     })
     }
   }
 </script>
