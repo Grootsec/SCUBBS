@@ -62,13 +62,7 @@
         this.formName.password=''
       }
     },
-    mounted(){
-      if (document.cookie.indexOf("myStrCookie=")===-1){
-
-      }else{
-        this.$route.push('/')
-      }
-    }
+    // mounted(){ }
   }
 </script>
 

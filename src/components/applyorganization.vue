@@ -61,7 +61,13 @@
         // todo: 加入后台接口
         this.$http.post('/api/v1/xxxxx', {}).then(function () {
 
-        })
+        });
+        this.$Message.success({
+          content: '申请成功',
+          duration: 0.5,
+          closable: true
+        });
+        this.$router.push("/");
       }
     },
     components: {

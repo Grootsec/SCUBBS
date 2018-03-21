@@ -14,6 +14,7 @@
       return {
         postcontent: "",
         hiddencontent: "",
+        atlist: [],
         value: '',
         addresslist: [
           {
@@ -59,13 +60,14 @@
                   });
                   this.postcontent += "@" + name + " ";
                   this.hiddencontent += "@" + val + " ";
+                  this.atlist.push({'name': name, 'val': val});
                 }
               }
             })
           }
         })
       },
-      submit(){
+      submit() {
         console.log(this.submitcontent);
         // todo: 消息推上去
 
@@ -76,11 +78,17 @@
     },
     computed: {
       submitcontent() {
-        let content = this.postcontent;
-        content = content.replace(/@(.*?) /g, "");
-        return this.hiddencontent + content;
+        let contentTest = content;
+        this.atlist.forEach((e) => {
+          contentTest = contentTest.replace('@' + e.name + ' ', '@' + e.val + ' ');
+        });
+        console.log(contentTest);
+        return contentTest;
       }
     },
+    mounted() {
+      //todo: 获取地址信息
+    }
   }
 </script>
 

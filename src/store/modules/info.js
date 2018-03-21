@@ -1,6 +1,6 @@
 const userinfo = {
   state: {
-    name: '测试', // 用户名字
+    name: '登录', // 用户名字
     no: '123', // 用户编号
     nickname: '',// Nickname
     college: '软件学院', // 用户学院
@@ -29,6 +29,9 @@ const userinfo = {
       state.avatar = info.avatar;
       state.introduction = info.introduction;
       state.nickname = info.nickname;
+      state.college = info.academy;
+      state.sex = info.sex;
+      state.grade = info.grade;
     }
   }
 };

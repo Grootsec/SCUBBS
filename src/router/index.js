@@ -6,6 +6,8 @@ import index from '@/components/index'
 import ApplyOrganization from '@/components/ApplyOrganization'
 import PersonInfo from "@/components/PersonInfo"
 // const PersonInfo = r => require.ensure([], () => r(require('../components/PersonInfo')), 'PersonInfo');
+const logout = r => require.ensure([], () => r(require('../components/logout')), 'logout');
+// const Component404 = require.ensure([], () => r(require('../components/404')), 'page404');
 Vue.use(Router);
 
 export default new Router({
@@ -34,7 +36,21 @@ export default new Router({
       path: '/setting',
       name: '/setting',
       component: PersonInfo
-    }
+    },
+    {
+      path: '/logout',
+      name: '/logout',
+      component: logout
+    },
+    {
+      path: "*",
+      redirect: "/"
+    },
+    // {
+    //   path: '/404',
+    //   name: '404',
+    //
+    // }
 
   ]
 })
