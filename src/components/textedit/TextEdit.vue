@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Input v-model="postcontent" type="textarea" :autosize="{minRows: 4}" placeholder="Enter something..."></Input>
-    <Button type="primary" shape="circle" icon="at" @click="handleRender"></Button>
-    <Button type="primary" shape="circle" icon="at" @click="submit"></Button>
+    <Input v-model="postcontent" type="textarea" :autosize="{minRows: 4}" placeholder="输入内容，点击下方的@按钮可@。"></Input>
+    <Button type="primary" shape="circle" icon="at" class="button" @click="handleRender"></Button>
+    <Button type="success" long @click="submit">SUBMIT</Button>
   </div>
 </template>
 
@@ -67,6 +67,8 @@
       },
       submit(){
         console.log(this.submitcontent);
+        // todo: 消息推上去
+
       }
     },
     components: {
@@ -83,7 +85,7 @@
 </script>
 
 <style scoped>
-  button {
+  .button {
     position: relative;
     top: -18px;
     left: 10px;

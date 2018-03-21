@@ -22,7 +22,7 @@
         <Row>
           <h3>动态</h3>
           <timeline-bur>
-            <timeline-item-bur :date="item.date" v-for="(item, index) of new_dynamic" type="primary">
+            <timeline-item-bur :date="item.date" v-for="item of new_dynamic" :key="item.value" type="primary">
               <p>{{item.content}}</p>
             </timeline-item-bur>
           </timeline-bur>

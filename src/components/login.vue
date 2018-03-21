@@ -35,9 +35,11 @@
         // todo: $store 存储内容
           if (responce.code===0){
             this.$store.commit("login", responce);
+            this.$router.push('/index')
           }
           else{
             // error parse
+            this.$Message.error("账号或密码错误");
           }
         })
       },
