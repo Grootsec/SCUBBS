@@ -1,35 +1,40 @@
 <template>
-  <div class="layout">
-    <Layout>
-      <headers/>
-      <Content :style="{padding: '0 50px'}">
-        <Row style="height: 200px">
-          <Col span="6">
-          <div>姓名: {{username}}</div>
-          </Col>
-          <Col span="6">
-          <div>学院: {{college}}</div>
-          </Col>
-        </Row>
-        <div class="border"></div>
-        <Row>
-          <div>
-            个人简介:
-            {{introduction}}
-          </div>
-        </Row>
-        <div class="border"></div>
-        <Row>
-          <h3>动态</h3>
-          <timeline-bur>
-            <timeline-item-bur :date="item.date" v-for="item of new_dynamic" :key="item.value" type="primary">
-              <p>{{item.content}}</p>
-            </timeline-item-bur>
-          </timeline-bur>
-        </Row>
-      </Content>
-      <Footer class="layout-footer-center">2018 &copy; <a href="http://grootsec.org">grootsec.org</a></Footer>
-    </Layout>
+  <div>
+    <headers/>
+    <div class="layout">
+      <BackTop></BackTop>
+      <Layout>
+        <Content :style="{padding: '0 50px'}">
+          <Row style="height: 200px">
+            <Col span="6">
+            <div>姓名: {{username}}</div>
+            </Col>
+            <Col span="6">
+            <div>学院: {{college}}</div>
+            </Col>
+          </Row>
+          <div class="border"></div>
+          <Row>
+            <div>
+              个人简介:
+              {{introduction}}
+            </div>
+          </Row>
+          <div class="border"></div>
+          <Row>
+            <h2>动态</h2>
+            <timeline-bur>
+              <timeline-item-bur :date="item.date" v-for="item of new_dynamic" :key="item.value" type="primary">
+                <p>{{item.content}}</p>
+              </timeline-item-bur>
+            </timeline-bur>
+          </Row>
+          <div class="border"></div>
+            <h2>我的组织 :测试</h2>
+        </Content>
+        <Footer class="layout-footer-center">2018 &copy; <a href="http://grootsec.org">grootsec.org</a></Footer>
+      </Layout>
+    </div>
   </div>
 </template>
 

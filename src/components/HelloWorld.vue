@@ -1,11 +1,13 @@
 <template>
   <div>
     <TextEdit/>
-  </div> 
+    <Content></Content>
+  </div>
 </template>
 
 <script>
 import TextEdit from "./textedit/TextEdit"
+import Content from "./Content"
 export default {
   name: 'HelloWorld',
   data () {
@@ -14,7 +16,8 @@ export default {
     }
   },
   components:{
-    TextEdit
+    TextEdit,
+    Content
   }
 }
 </script>

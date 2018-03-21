@@ -4,8 +4,8 @@ import HelloWorld from '@/components/HelloWorld'
 import login from '@/components/login'
 import index from '@/components/index'
 import ApplyOrganization from '@/components/ApplyOrganization'
-
-const PersonInfo = r => require.ensure([], () => r(require('../components/PersonInfo')), 'PersonInfo');
+import PersonInfo from "@/components/PersonInfo"
+// const PersonInfo = r => require.ensure([], () => r(require('../components/PersonInfo')), 'PersonInfo');
 Vue.use(Router);
 
 export default new Router({

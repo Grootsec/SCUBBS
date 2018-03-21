@@ -2,8 +2,10 @@
   <div>
     <Menu mode="horizontal" :theme="theme1" active-name="1">
       <MenuItem name="1">
-        <Icon type="ios-paper"></Icon>
-        青春广场
+        <router-link to="/">
+          <Icon type="ios-paper"></Icon>
+          青春广场
+        </router-link>
       </MenuItem>
       <MenuItem name="2">
         <Icon type="ios-people"></Icon>
@@ -38,10 +40,10 @@
         nickname: this.$store.state.info.nickname,
       }
     },
-    computed:{
-        avatar: function(){
-          return this.$store.state.info.avatar
-        }
+    computed: {
+      avatar: function () {
+        return this.$store.state.info.avatar
+      }
     }
   }
 </script>

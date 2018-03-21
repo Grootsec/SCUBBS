@@ -39,7 +39,11 @@
           }
           else{
             // error parse
-            this.$Message.error("账号或密码错误");
+            this.$Message.error({
+              content: '账号或密码错误',
+              duration: 5,
+              closable: true
+            });
           }
         })
       },
