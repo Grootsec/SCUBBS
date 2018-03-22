@@ -39,7 +39,7 @@
       </Modal>
     </div>
     <Radio v-model="single">匿名?</Radio>
-    <div> </div>
+    <div></div>
     <RadioGroup v-model="location">
       <Radio label="全校"></Radio>
       <Radio label="本学院"></Radio>
@@ -53,7 +53,7 @@
   import AddressSelect from "../AddressSelect/AddressSelect"
 
   export default {
-    props:{
+    props: {
       single: false,
       location: "全校"
     },
@@ -187,7 +187,7 @@
         });
         console.log(contentTest);
         let img_list = "";
-        this.defaultList.forEach((e) =>{
+        this.defaultList.forEach((e) => {
           img_list += e.name + " ";
         });
         contentTest += "丨" + img_list;
