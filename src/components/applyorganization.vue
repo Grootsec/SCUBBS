@@ -61,7 +61,7 @@
               duration: 0.5,
               closable: true
             });
-            this.$router.push("/");
+            // this.$router.push("/");
           }
           else {
             this.$Message.error({
