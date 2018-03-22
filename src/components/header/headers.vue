@@ -71,6 +71,13 @@
           })
         }
       }
+      if(this.$state.addressInfo.address.length === 0){
+        // todo: fetch address info
+        this.$http.get("/api/v1/xxxx").then(function(res){
+          res = res.body;
+          this.$store.commit("fetchAddressInfo", res);
+        })
+      }
     }
   }
 </script>

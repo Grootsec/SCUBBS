@@ -38,6 +38,13 @@
         <img :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'" v-if="visible" style="width: 100%">
       </Modal>
     </div>
+    <Radio v-model="single">匿名?</Radio>
+    <div> </div>
+    <RadioGroup v-model="location">
+      <Radio label="全校"></Radio>
+      <Radio label="本学院"></Radio>
+      <Radio label="本专业"></Radio>
+    </RadioGroup>
     <Button type="success" long @click="submit">SUBMIT</Button>
   </div>
 </template>
@@ -46,6 +53,10 @@
   import AddressSelect from "../AddressSelect/AddressSelect"
 
   export default {
+    props:{
+      single: false,
+      location: "全校"
+    },
     data() {
       return {
         postcontent: "",
@@ -87,6 +98,7 @@
         imgName: '',
         visible: false,
         uploadList: [],
+
       }
     },
     methods: {
@@ -119,6 +131,8 @@
       submit() {
         console.log(this.submitcontent);
         // todo: 消息推上去
+        let anonymous = this.single;
+        let location = this.location;
 
       },
       handleView(name) {
