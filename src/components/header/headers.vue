@@ -60,16 +60,17 @@
       if (document.cookie.indexOf("myStrCookie=") === -1) {
         this.show_login = true;
       } else {
-        this.$http.get("/api/v1/fetchInfo").then(function (res) {
-          res = res.body;
-          if (res.code == 0) {
-            this.$store.commit("fetch", res);
-          } else {
-            this.show_login = true;
-          }
-        })
+        if (this.name === "登录"){
+          this.$http.get("/api/v1/fetchInfo").then(function (res) {
+            res = res.body;
+            if (res.code == 0) {
+              this.$store.commit("fetch", res);
+            } else {
+              this.show_login = true;
+            }
+          })
+        }
       }
-
     }
   }
 </script>

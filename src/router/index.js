@@ -8,6 +8,7 @@ import PersonInfo from "@/components/PersonInfo"
 // const PersonInfo = r => require.ensure([], () => r(require('../components/PersonInfo')), 'PersonInfo');
 const logout = r => require.ensure([], () => r(require('../components/logout')), 'logout');
 // const Component404 = require.ensure([], () => r(require('../components/404')), 'page404');
+import test from "@/components/test"
 Vue.use(Router);
 
 export default new Router({
@@ -46,11 +47,12 @@ export default new Router({
       path: "*",
       redirect: "/"
     },
-    // {
-    //   path: '/404',
-    //   name: '404',
-    //
-    // }
+    {
+      path: '/test',
+      name: 'test',
+      component: test,
+
+    }
 
   ]
 })
