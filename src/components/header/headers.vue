@@ -72,8 +72,7 @@
         }
       }
       if(this.$store.state.addressInfo.address.length === 0){
-        // todo: fetch address info
-        this.$http.get("/api/v1/xxxx").then(function(res){
+        this.$http.get("/api/v1/getAllNameAndNumber").then(function(res){
           res = res.body;
           this.$store.commit("fetchAddressInfo", res);
         })

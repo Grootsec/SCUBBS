@@ -55,7 +55,10 @@
   export default {
     props: {
       single: false,
-      location: "全校"
+      location: "全校",
+      type:{
+        default: "0",
+      }
     },
     data() {
       return {
@@ -63,27 +66,7 @@
         hiddencontent: "",
         atlist: [],
         value: '',
-        addresslist: [
-          {
-            value: 'newyork',
-            label: 'NewYork'
-          },
-          {
-            value: 'sydney',
-            label: 'Sydney'
-          },
-          {
-            value: 'ottawa',
-            label: 'Ottawa'
-          },
-          {
-            value: 'paris',
-            label: 'Paris'
-          },
-          {
-            value: 'canberra',
-            label: 'Canberra'
-          }],
+        addresslist: this.$store.state.addressInfo.address,
         address: "",
         defaultList: [
           {
@@ -196,7 +179,7 @@
     },
     mounted() {
       //todo: 获取地址信息
-      console.log(this.$refs)
+      console.log(this.$refs);
       this.uploadList = this.$refs.upload.fileList;
     }
   }

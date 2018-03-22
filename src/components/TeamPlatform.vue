@@ -2,11 +2,11 @@
   <div>
     <div style="background:#eee;padding: 20px">
       <router-link :to="{ name: 'user', params: { userId: 123 }}">
-      <Card :bordered="false">
-        <p slot="title">No border title</p>
-        <div  slot="extra"> <Avatar icon="person"/></div>
-        <p>Content of no border type. Content of no border type. Content of no border type. Content of no border type. </p>
-      </Card>
+        <Card :bordered="false">
+          <p slot="title">No border title</p>
+          <div  slot="extra"> <Avatar icon="person"/></div>
+          <p>Content of no border type. Content of no border type. Content of no border type. Content of no border type. </p>
+        </Card>
       </router-link>
     </div>
     <div style="background:#eee;padding: 20px">

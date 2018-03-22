@@ -1,5 +1,4 @@
 <template>
-
   <div class="layout">
     <Header>
       <headers/>
@@ -7,29 +6,38 @@
     <BackTop></BackTop>
     <Layout>
       <Content :style="{padding: '0 50px'}">
-        <Row style="height: 200px">
-          <Col span="6">
-          <div>姓名: {{username}}</div>
-          </Col>
-          <Col span="6">
-          <div>学院: {{college}}</div>
-          </Col>
+        <Row style="height: 100px">
+          <Col span="4">
           <Upload
             multiple
             type="drag"
             action="//jsonplaceholder.typicode.com/posts/">
-            <div style="padding: 20px 0">
-              <Avatar :src="avatar" v-if="avatar"></Avatar>
-              <Avatar icon="person" v-else="avatar"></Avatar>
+            <div>
+              <Avatar :src="avatar" size="large" v-if="avatar"></Avatar>
+              <Avatar icon="person" size="large" v-else="avatar"></Avatar>
             </div>
           </Upload>
+          </Col>
+          <Col span="4" offset="2" style="vertical-align: middle;">
+          <div style="vertical-align: middle">姓名: {{username}}</div>
+          </Col>
+          <Col span="4">
+          <div>学院: {{college}}</div>
+          </Col>
+          <Col span="4">
+          <div>专业: {{profession}}</div>
+          </Col>
+          <Col span="4">
+          <div>性别: {{sex}}</div>
+          </Col>
         </Row>
         <div class="border"></div>
         <Row>
-          <div>
-            个人简介:
-            {{introduction}}
-          </div>
+            <label>设置nickname:</label>
+            <input v-model="nickname">
+            <lable>我的简介:</lable>
+            <Input v-model="introduction" type="textarea" :autosize="{minRows: 2}" placeholder="Enter something..."/>
+          <Button type="primary" @click="handleSubmit">保存修改</Button>
         </Row>
         <div class="border"></div>
         <Row>
@@ -44,11 +52,9 @@
         <h2>我的组织 :测试</h2>
         <Row>
           <Col span="4">
-          <route-link to="">
+          <route-link to="/">
             <Card>
               <p slot="title">The standard card</p>
-              <p>Content of card</p>
-              <p>Content of card</p>
               <p>Content of card</p>
             </Card>
           </route-link>
@@ -56,8 +62,6 @@
           <Col span="4" offset="2">
           <Card>
             <p slot="title">The standard card</p>
-            <p>Content of card</p>
-            <p>Content of card</p>
             <p>Content of card</p>
           </Card>
           </Col>
@@ -78,8 +82,9 @@
         username: this.$store.state.info.name,
         nickname: this.$store.state.info.nickname,
         college: this.$store.state.info.college,
-        avatar: this.$store.state.info.avatar,
         introduction: this.$store.state.info.introduction,
+        profession: this.$store.state.info.profession,
+        sex: this.$store.state.info.sex,
         new_message: [],
         new_secret_message: [],
         new_dynamic: [{"date": "2分钟前", "content": "逼王真是强"}, {"date": "2分钟前", "content": "逼王真是强"}, {
@@ -102,6 +107,23 @@
         // this.$http.get('/api/v1/').then(function(){
         //
         // })
+      },
+      handleSubmit(){
+        this.$http.post("/api/v1/updateObject",
+          {
+            // icon: this.avatar,
+            id : this.$store.state.info.no,
+            name: this.nickname,
+            description: this.introduction,
+
+          }).then(function(res){
+
+        })
+      }
+    },
+    computed:{
+      avatar(){
+        return this.$store.state.info.avatar;
       }
     }
   }

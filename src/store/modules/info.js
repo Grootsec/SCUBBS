@@ -7,6 +7,7 @@ const userinfo = {
     cookies: '', // cookies
     avatar: '', // 头像地址
     introduction: '测试', // 简介
+    profession:"",
     grade: '',
     sex: '',
     stuclass: '',
@@ -22,6 +23,7 @@ const userinfo = {
       state.college = info.academy;
       state.sex = info.sex;
       state.grade = info.grade;
+      state.profession = info.profession;
     },
     fetch(state, info) {
       state.name = info.name;
@@ -32,6 +34,7 @@ const userinfo = {
       state.college = info.academy;
       state.sex = info.sex;
       state.grade = info.grade;
+      state.profession = info.profession;
     }
   }
 };
