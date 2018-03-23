@@ -3,11 +3,14 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import login from '@/components/login'
 import index from '@/components/index'
+import setting from '@/components/setting'
 import ApplyOrganization from '@/components/ApplyOrganization'
 import PersonInfo from "@/components/PersonInfo"
 // const PersonInfo = r => require.ensure([], () => r(require('../components/PersonInfo')), 'PersonInfo');
 const logout = r => require.ensure([], () => r(require('../components/logout')), 'logout');
 // const Component404 = require.ensure([], () => r(require('../components/404')), 'page404');
+import test from "@/components/test"
+import Organization from "@/components/Organization"
 Vue.use(Router);
 
 export default new Router({
@@ -35,7 +38,7 @@ export default new Router({
     {
       path: '/setting',
       name: '/setting',
-      component: PersonInfo
+      component: setting
     },
     {
       path: '/logout',
@@ -46,11 +49,20 @@ export default new Router({
       path: "*",
       redirect: "/"
     },
-    // {
-    //   path: '/404',
-    //   name: '404',
-    //
-    // }
-
+    {
+      path: '/test',
+      name: 'test',
+      component: test,
+    },
+    {
+      path:'/user/:id',
+      name: 'person-info',
+      component: PersonInfo
+    },
+    {
+      path: '/organization/:id',
+      name: 'organization',
+      component: Organization
+    }
   ]
 })

@@ -18,26 +18,16 @@
             </div>
             <Row type="flex" justify="center" class="code-row-bg">
               <Col span="4">
-              <label> 负责人名字</label></Col>
+              <label> 组织描述</label></Col>
               <Col span="4">
-              <Input v-model="OrganizationHeadName" placeholder="Enter something..." clearable
+              <Input v-model="description" placeholder="Enter something..." clearable
                      style="width: 200px"></Input></Col>
             </Row>
-            <div>
-              <Row type="flex" justify="center" class="code-row-bg">
-                <Col span="4">
-                <label> 组织所属学院</label> </Col>
-                <Col span="4">
-                <Input v-model="College" placeholder="Enter something..." clearable style="width: 200px"></Input></Col>
-              </Row>
-            </div>
-            <div>
               <Row type="flex" justify="center" class="code-row-bg">
                 <Col span="4">
               <Button type="success" size="large" style="width: 80%" v-on:click="submit">申请</Button>
                 </Col>
               </Row>
-            </div>
           </Card>
         </Content>
         <Footer class="layout-footer-center">2018 &copy; <a href="http://grootsec.org">grootsec.org</a></Footer>
@@ -54,20 +44,34 @@
         OrganizationName: '',
         OrganizationHeadName: '',
         College: '',
+        description:''
       }
     },
     methods: {
       submit() {
         // todo: 加入后台接口
-        this.$http.post('/api/v1/xxxxx', {}).then(function () {
+        this.$http.post('/api/v1/createTeam', {
+          name: this.OrganizationName,
+          description: this.description
+        }).then(function (res) {
+          res =res.body;
+          if (res.code==0){
+            this.$Message.success({
+              content: '申请成功',
+              duration: 0.5,
+              closable: true
+            });
+            // this.$router.push("/");
+          }
+          else {
+            this.$Message.error({
+              content: '未知错误',
+              duration: 0.5,
+              closable: true
+            });
+          }
+        });
 
-        });
-        this.$Message.success({
-          content: '申请成功',
-          duration: 0.5,
-          closable: true
-        });
-        this.$router.push("/");
       }
     },
     components: {

@@ -1,7 +1,6 @@
 <template>
   <div>
     <TextEdit/>
-    <Content></Content>
   </div>
 </template>
 
@@ -17,7 +16,6 @@ export default {
   },
   components:{
     TextEdit,
-    Content
   }
 }
 </script>
