@@ -126,6 +126,13 @@
         // todo: 消息推上去
         let anonymous = this.single;
         let location = this.location;
+        let type = this.type;
+        this.$http.post("/api/v1/sendMessage",{
+          content: this.submitcontent,
+          isanonymous: anonymous,
+          location: location,
+          type: type
+        })
 
       },
       handleView(name) {

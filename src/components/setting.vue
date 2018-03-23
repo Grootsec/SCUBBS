@@ -11,7 +11,7 @@
           <Upload
             multiple
             type="drag"
-            action="//jsonplaceholder.typicode.com/posts/">
+            action="/">
             <div>
               <Avatar :src="avatar" size="large" v-if="avatar"></Avatar>
               <Avatar icon="person" size="large" v-else="avatar"></Avatar>
