@@ -10,6 +10,7 @@ import PersonInfo from "@/components/PersonInfo"
 const logout = r => require.ensure([], () => r(require('../components/logout')), 'logout');
 // const Component404 = require.ensure([], () => r(require('../components/404')), 'page404');
 import test from "@/components/test"
+import Organization from "@/components/Organization"
 Vue.use(Router);
 
 export default new Router({
@@ -55,7 +56,13 @@ export default new Router({
     },
     {
       path:'/user/:id',
+      name: 'person-info',
       component: PersonInfo
+    },
+    {
+      path: '/organization/:id',
+      name: 'organization',
+      component: Organization
     }
   ]
 })

@@ -28,14 +28,14 @@
         :before-upload="handleBeforeUpload"
         multiple
         type="drag"
-        action="//jsonplaceholder.typicode.com/posts/"
+        action="/api/v1/im/avatarupload"
         style="display: inline-block;width:58px;">
         <div style="width: 58px;height:58px;line-height: 58px;">
           <Icon type="camera" size="20"></Icon>
         </div>
       </Upload>
       <Modal title="View Image" v-model="visible">
-        <img :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'" v-if="visible" style="width: 100%">
+        <img :src="imgName" v-if="visible" style="width: 100%">
       </Modal>
     </div>
     <Radio v-model="single">匿名?</Radio>
@@ -56,7 +56,7 @@
     props: {
       single: false,
       location: "全校",
-      type:{
+      type: {
         default: "0",
       }
     },
@@ -70,8 +70,8 @@
         address: "",
         defaultList: [
           {
-            'name': 'a42bdcc1178e62b4694c830f028db5c0',
-            'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
+            'name': '/file/pic/6d80e95181bb9a7e9e0b1cbd34ce80db37231d19.jpg',
+            'url': '/file/pic/thumbnail/6d80e95181bb9a7e9e0b1cbd34ce80db37231d19.jpg'
           },
           {
             'name': 'bc7521e033abdd1e92222d733590f104',
@@ -81,6 +81,16 @@
         imgName: '',
         visible: false,
         uploadList: [],
+        img_list: [
+          {
+            'name': '/file/pic/6d80e95181bb9a7e9e0b1cbd34ce80db37231d19.jpg',
+            'url': '/file/pic/thumbnail/6d80e95181bb9a7e9e0b1cbd34ce80db37231d19.jpg'
+          },
+          {
+            'name': 'bc7521e033abdd1e92222d733590f104',
+            'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
+          }
+        ]
 
       }
     },
@@ -130,9 +140,11 @@
       handleSuccess(res, file) {
         // 因为上传过程为实例，这里模拟添加 url
         console.log(res); // http return content
-        file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
-        file.name = '7eb99afb9d5f317c912f08b5212fd69a';
-        this.defaultList.push({'name': file.name, 'url': file.url});
+        file.url = res.thumbnailpath;
+        file.name = res.filepath;
+        console.log(this.$refs.upload.fileList);
+        this.img_list.push({"name": file.name, "url": file.url})
+        // this.defaultList.push({'name': file.name, 'url': file.url});
       },
       handleFormatError(file) {
         this.$Notice.warning({
@@ -170,7 +182,7 @@
         });
         console.log(contentTest);
         let img_list = "";
-        this.defaultList.forEach((e) => {
+        this.img_list.forEach((e) => {
           img_list += e.name + " ";
         });
         contentTest += "丨" + img_list;
