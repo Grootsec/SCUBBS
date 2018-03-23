@@ -26,10 +26,17 @@
     </Modal>
   </div>
   <div style="position: relative; overflow: hidden;">
-    <i-switch v-model="single" size="large" style="position: relative;float: left;">
-      <span slot="open">实名</span>
-      <span slot="close">匿名</span>
-    </i-switch>
+    <Tooltip>
+      <div slot="content">
+        <p>青春广场行使实名制</p>
+        <p>瞎bb只能匿名</p>
+        <p>表白墙支持匿名</p>
+      </div>
+      <i-switch v-model="single" size="large" :disabled="disabled" style="position: relative;float: left;">
+        <span slot="open">匿名</span>
+        <span slot="close">实名</span>
+      </i-switch>
+    </Tooltip>
     <RadioGroup v-model="location" style="position: relative;float: right;">
       <Radio label="全校"></Radio>
       <Radio label="本学院"></Radio>
@@ -53,6 +60,7 @@ export default {
   },
   data() {
     return {
+      disabled: true,
       postcontent: "",
       hiddencontent: "",
       atlist: [],

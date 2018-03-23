@@ -6,6 +6,7 @@ import index from '@/components/index'
 import setting from '@/components/setting'
 import ApplyOrganization from '@/components/ApplyOrganization'
 import PersonInfo from "@/components/PersonInfo"
+import MessageBox from "@/components/shortMessageContainer/MessageBox.vue"
 // const PersonInfo = r => require.ensure([], () => r(require('../components/PersonInfo')), 'PersonInfo');
 const logout = r => require.ensure([], () => r(require('../components/logout')), 'logout');
 // const Component404 = require.ensure([], () => r(require('../components/404')), 'page404');
@@ -15,6 +16,11 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: '/MessageBox',
+      name: 'MessageBox',
+      component: MessageBox
+    },
     {
       path: '/HelloWorld',
       name: 'HelloWorld',

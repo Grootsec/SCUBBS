@@ -4,33 +4,54 @@
     <Col span="6">
     <Card>
       <p slot="title">
-        <Avatar>U</Avatar>{{items.username}}
+        <Avatar>U</Avatar>我叫孔旻昊
       </p>
       <a href="#" slot="extra" @click.prevent="changeLimit">
         <Icon type="ios-loop-strong"></Icon>
-        Change
+        设置
       </a>
-      <span>123</span>
+      <table>
+        <tr>
+          <td>姓名</td>
+          <td>孔旻昊</td>
+        </tr>
+        <tr>
+          <td>昵称</td>
+          <td>xxx</td>
+        </tr>
+        <tr>
+          <td>发消息数</td>
+          <td>12222</td>
+        </tr>
+        <tr>
+          <td>获得的赞</td>
+          <td>12222</td>
+        </tr>
+        <tr>
+          <td>获得的评论数</td>
+          <td>12222</td>
+        </tr>
+      </table>
     </Card>
-    <Button type="primary" @click="modal1 = true">Display dialog box</Button>
+    <Button type="primary" @click="modal1 = true" long>发消息</Button>
     </Col>
     <Col span="12" class="center-container hide-parent">
     <Scroll class="hide-child" :on-reach-top="handleReachTop" :on-reach-bottom="handleReachBottom">
-      <Button type="ghost" long style="margin-bottom:10px">刷新</Button>
+      <Button type="info" long style="margin-bottom:10px">刷新</Button>
       <Card v-for="item in list1" class="card">
         <p slot="title">
           <Avatar>U</Avatar>{{item}}
         </p>
-        <a href="#" slot="extra" @click.prevent="changeLimit">
-          <Icon type="ios-loop-strong"></Icon>
-          Change
-        </a>
+        <div slot="extra">
+          <Button type="ghost" shape="circle" icon="heart" @click="success">喜欢:120</Button>
+          <Button type="error" shape="circle" icon="fireball">举报:2</Button>
+        </div>
         <Card>
           <div style="text-align:center">
             <h3>我发的贴</h3>
           </div>
         </Card>
-        <p class="ivu-card-footer">123</p>
+        <Button shape="circle" type="ghost" @click="modal2 = true" long>更多</Button>
       </Card>
     </Scroll>
     </Col>
@@ -62,15 +83,23 @@
     <div slot="footer">
     </div>
   </Modal>
+  <Modal v-model="modal2">
+    <MessageBox></MessageBox>
+    <div slot="footer">
+      <Button type="ghost" long @click="modal2 = false">关闭</Button>
+    </div>
+  </Modal>
 </Layout>
 </template>
 <script>
 import TextEdit from '../textedit/TextEdit.vue';
+import MessageBox from './MessageBox.vue';
 
 export default {
   data() {
     return {
       modal1: false,
+      modal2: false,
       items: [{
         username: 'tempuser'
       }],
@@ -145,13 +174,17 @@ export default {
     },
     cancel() {
       this.$Message.info('Clicked cancel');
+    },
+    success() {
+      this.$Message.success('This is a success tip');
     }
   },
   mounted() {
     this.changeLimit();
   },
   components: {
-    TextEdit
+    TextEdit,
+    MessageBox
   }
 }
 </script>
@@ -194,5 +227,9 @@ export default {
 
 .ivu-scroll-loader-wrapper {
   margin-right: 3rem;
+}
+
+.ivu-avatar {
+  margin-right: 0.5rem;
 }
 </style>

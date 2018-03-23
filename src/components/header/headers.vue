@@ -1,7 +1,7 @@
 <template>
 <div class="layout">
   <Layout>
-    <Header :style="{position: 'fixed', width: '100%', zIndex: '9999'}">
+    <Header :style="{position: 'fixed', width: '100%', zIndex: '1'}">
       <Menu mode="horizontal" :theme="theme1" active-name="1">
         <div class="layout-nav">
           <MenuItem name="0">
