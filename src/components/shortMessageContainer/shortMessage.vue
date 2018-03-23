@@ -12,6 +12,7 @@
       </a>
       <span>123</span>
     </Card>
+    <Button type="primary" @click="modal1 = true">Display dialog box</Button>
     </Col>
     <Col span="12" class="center-container hide-parent">
     <Scroll class="hide-child" :on-reach-top="handleReachTop" :on-reach-bottom="handleReachBottom">
@@ -56,12 +57,20 @@
     </Card>
     </Col>
   </Row>
+  <Modal v-model="modal1" title="发帖">
+    <TextEdit></TextEdit>
+    <div slot="footer">
+    </div>
+  </Modal>
 </Layout>
 </template>
 <script>
+import TextEdit from '../textedit/TextEdit.vue';
+
 export default {
   data() {
     return {
+      modal1: false,
       items: [{
         username: 'tempuser'
       }],
@@ -130,15 +139,24 @@ export default {
           resolve();
         }, 2000);
       });
+    },
+    ok() {
+      this.$Message.info('Clicked ok');
+    },
+    cancel() {
+      this.$Message.info('Clicked cancel');
     }
   },
   mounted() {
     this.changeLimit();
+  },
+  components: {
+    TextEdit
   }
 }
 </script>
 
-<style media="screen" scoped>
+<style media="screen">
 .center-container {
   padding: 0px 1rem;
 }

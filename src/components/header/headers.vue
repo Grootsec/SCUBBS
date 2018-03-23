@@ -5,22 +5,24 @@
       <Menu mode="horizontal" :theme="theme1" active-name="1">
         <div class="layout-nav">
           <MenuItem name="0">
-          <v-link href="/SCUBBS">
+          <router-link to="/SCUBBS" tag="span">
             <h1>SCUBBS</h1>
-          </v-link>
+          </router-link>
           </MenuItem>
           <MenuItem name="1">
-          <v-link href="/">
+          <router-link to="/" tag="span">
             <Icon type="ios-paper"></Icon>青春广场
-          </v-link>
+          </router-link>
           </MenuItem>
           <MenuItem name="2">
-          <v-link href="/xbb">
+          <router-link to="/xbb" tag="span">
             <Icon type="ios-people"></Icon>瞎BB
-          </v-link>
+          </router-link>
           </MenuItem>
           <MenuItem name="3">
-          <Icon type="heart"></Icon>表白墙
+          <router-link to="/bbq" tag="span">
+            <Icon type="heart"></Icon>表白墙
+          </router-link>
           </MenuItem>
           </span>
         </div>
@@ -32,19 +34,19 @@
             <Avatar icon="person" v-else="avatar" />
           </Badge>
           <Dropdown>
-            <a href="javascript:void(0)">
-              <span v-if="nickname">{{$store.state.info.nickname}}</span>
+            <span>
+            <span v-if="nickname">{{$store.state.info.nickname}}</span>
             <span v-else="nickname">{{$store.state.info.name}}</span>
             <Icon type="arrow-down-b"></Icon>
-            </a>
+            </span>
             <DropdownMenu slot="list">
-              <router-link v-if="!show_login" to="/setting">
+              <router-link v-if="!show_login" to="/setting" tag="span">
                 <DropdownItem>设置</DropdownItem>
               </router-link>
-              <router-link v-if="show_login" to="/login">
+              <router-link v-if="show_login" to="/login" tag="span">
                 <DropdownItem>login</DropdownItem>
               </router-link>
-              <router-link v-else="show_login" to="/logout">
+              <router-link v-else="show_login" to="/logout" tag="span">
                 <DropdownItem>logout</DropdownItem>
               </router-link>
             </DropdownMenu>
@@ -59,57 +61,27 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import VLink from '../VLink.vue'
-
 export default {
   data() {
     return {
-      theme1: "dark",
+      theme1: 'dark',
       name: this.$store.state.info.name,
       nickname: this.$store.state.info.nickname,
       show_login: false
-    };
+    }
   },
   computed: {
     avatar: function() {
-      return this.$store.state.info.avatar;
+      return this.$store.state.info.avatar
     }
   },
   mounted() {
     if (document.cookie.indexOf("myStrCookie=") === -1) {
       this.show_login = true;
     } else {
-      this.$http.get("/api/v1/fetchInfo")
-        .then(function(res) {
-          res = res.body;
-          if (res.code == 0) {
-            this.$store.commit("fetch", res);
-          } else {
-            this.show_login = true;
-          }
-        });
-=======
-  export default {
-    data() {
-      return {
-        theme1: 'dark',
-        name: this.$store.state.info.name,
-        nickname: this.$store.state.info.nickname,
-        show_login: false
-      }
-    },
-    computed: {
-      avatar: function () {
-        return this.$store.state.info.avatar
-      }
-    },
-    mounted() {
-      if (document.cookie.indexOf("myStrCookie=") === -1) {
-        this.show_login = true;
-      } else {
-        if (this.name === "登录"){
-          this.$http.get("/api/v1/fetchInfo").then(function (res) {
+      if (this.name === "登录") {
+        this.$http.get("/api/v1/fetchInfo")
+          .then(function(res) {
             res = res.body;
             if (res.code == 0) {
               this.$store.commit("fetch", res);
@@ -117,19 +89,15 @@ export default {
               this.show_login = true;
             }
           })
-        }
       }
-      if(this.$store.state.addressInfo.address.length === 0){
-        this.$http.get("/api/v1/getAllNameAndNumber").then(function(res){
+    }
+    if (this.$store.state.addressInfo.address.length === 0) {
+      this.$http.get("/api/v1/getAllNameAndNumber")
+        .then(function(res) {
           res = res.body;
           this.$store.commit("fetchAddressInfo", res);
         })
-      }
->>>>>>> 293413483290991cffc7eb3272f7f227b00d35f2
     }
-  },
-  components: {
-    VLink
   }
 };
 </script>
