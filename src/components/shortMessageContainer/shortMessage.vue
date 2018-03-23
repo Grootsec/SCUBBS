@@ -38,20 +38,20 @@
     <Col span="12" class="center-container hide-parent">
     <Scroll class="hide-child" :on-reach-top="handleReachTop" :on-reach-bottom="handleReachBottom">
       <Button type="info" long style="margin-bottom:10px">刷新</Button>
-      <Card v-for="item in list1" class="card">
+      <Card v-for="item in list" class="card">
         <p slot="title">
-          <Avatar>U</Avatar>{{item}}
+          <Avatar :src="item.icon"></Avatar>{{item.nickname}}
         </p>
         <div slot="extra">
-          <Button type="ghost" shape="circle" icon="heart" @click="success">喜欢:120</Button>
-          <Button type="error" shape="circle" icon="fireball">举报:2</Button>
+          <Button type="ghost" shape="circle" icon="heart" @click="success">喜欢{{item.goodcount}}</Button>
+          <Button type="error" shape="circle" icon="fireball">举报{{item.badcount}}</Button>
         </div>
         <Card>
           <div style="text-align:center">
-            <h3>我发的贴</h3>
+            <h3 v-html="replaceContent(item.content)"></h3>
           </div>
         </Card>
-        <Button shape="circle" type="ghost" @click="modal2 = true" long>更多</Button>
+        <Button shape="circle" type="ghost" @click="handleMoreClick(item)" long>更多</Button>
       </Card>
     </Scroll>
     </Col>
@@ -84,7 +84,7 @@
     </div>
   </Modal>
   <Modal v-model="modal2">
-    <MessageBox></MessageBox>
+    <MessageBox :post="item"></MessageBox>
     <div slot="footer">
       <Button type="ghost" long @click="modal2 = false">关闭</Button>
     </div>
@@ -100,11 +100,12 @@ export default {
     return {
       modal1: false,
       modal2: false,
+      item: [],
       items: [{
         username: 'tempuser'
       }],
       list2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      list1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      list1: [],
       columns1: [{
           title: 'Name',
           key: 'name'
@@ -154,7 +155,9 @@ export default {
           for (let i = 1; i < 11; i++) {
             this.list2.unshift(first - i);
           }
-          resolve();
+          resolve(this.$http.get('/api/v1/getMessageById?id=0&type=0').then(function(res){
+            this.list1 = res.body.info;
+          }));
         }, 2000);
       });
     },
@@ -172,15 +175,37 @@ export default {
     ok() {
       this.$Message.info('Clicked ok');
     },
-    cancel() {
-      this.$Message.info('Clicked cancel');
-    },
     success() {
       this.$Message.success('This is a success tip');
-    }
+    },
+    handleMoreClick(item){
+      this.modal2 = true;
+      this.item = item;
+    },
+    filterContent(info) {
+      info = info.replace(/@(.*?) /g, ' ');
+      info = info.replace(/丨.*/g, ' ');
+      return info
+    },
+    replaceContent(content){
+      let info = content.replace(/丨.*/g,' ');
+      this.$store.state.addressInfo.address.forEach(e => {
+        let url = '#/user/' + e.value;
+        info = info.replace('@'+e.value,  '<a href=' +url+'>' + '@' + e.label + '</a>');
+      });
+      return info;
+    },
   },
   mounted() {
     this.changeLimit();
+    this.$http.get('/api/v1/getMessageById?id=0&type=0').then(function(res){
+      this.list1 = res.body.info;
+    })
+  },
+  computed:{
+    list(){
+      return this.list1;
+    }
   },
   components: {
     TextEdit,

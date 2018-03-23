@@ -52,7 +52,7 @@ import AddressSelect from "../AddressSelect/AddressSelect"
 
 export default {
   props: {
-    single: false,
+    single: 0,
     location: "全校",
     type: {
       default: "0",
@@ -125,6 +125,7 @@ export default {
       console.log(this.submitcontent);
       // todo: 消息推上去
       let anonymous = this.single;
+      console.log(anonymous);
       let location = this.location;
       let type = this.type;
       this.$http.post("/api/v1/sendMessage", {
@@ -132,6 +133,15 @@ export default {
         isanonymous: anonymous,
         location: location,
         type: type
+      }).then(function(res){
+        res = res.body;
+        if (res.code==0){
+          this.$Message.success({
+            content: '短消息发送成功',
+            duration: 0.5,
+            closable: true
+          })
+        }
       })
 
     },

@@ -29,7 +29,7 @@
         <div class="float-left">
           <MenuItem name="4">
           <!--<router-link to="/setting" style="color: rgba(255,255,255,.7);">-->
-          <Badge dot>
+          <Badge :count="count" dot>
             <Avatar :src="avatar" v-if="avatar" />
             <Avatar icon="person" v-else="avatar" />
           </Badge>
@@ -67,12 +67,16 @@ export default {
       theme1: 'dark',
       name: this.$store.state.info.name,
       nickname: this.$store.state.info.nickname,
-      show_login: false
+      show_login: false,
+      count_temp : 0
     }
   },
   computed: {
     avatar: function() {
       return this.$store.state.info.avatar
+    },
+    count(){
+      return this.count_temp;
     }
   },
   mounted() {
@@ -98,6 +102,9 @@ export default {
           this.$store.commit("fetchAddressInfo", res);
         })
     }
+    this.$http.get('/api/v1/getAtNumber').then(function(res){
+      this.count_temp = res.body.count;
+    })
   }
 };
 </script>
