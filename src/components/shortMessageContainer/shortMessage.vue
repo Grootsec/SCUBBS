@@ -50,9 +50,9 @@
       </p>
       <a href="#" slot="extra" @click.prevent="changeLimit">
         <Icon type="ios-loop-strong"></Icon>
-        这个地方就算了吧
+        测试
       </a>
-      <span>软件学院孔旻昊发钱啦</span>
+      <span>软件学院</span>
     </Card>
     </Col>
   </Row>
@@ -138,7 +138,7 @@ export default {
 }
 </script>
 
-<style media="screen">
+<style media="screen" scoped>
 .center-container {
   padding: 0px 1rem;
 }
