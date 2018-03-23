@@ -1,7 +1,13 @@
 <template>
 <div>
   <headers></headers>
-  <shortMessage></shortMessage>
+  <div class="layout">
+    <Layout>
+      <Content :style="{margin: '88px 70px 0', minHeight: '500px'}">
+        <shortMessage></shortMessage>
+      </Content>
+    </Layout>
+  </div>
   <ifooter></ifooter>
 </div>
 </template>

@@ -5,15 +5,19 @@
       <Menu mode="horizontal" :theme="theme1" active-name="1">
         <div class="layout-nav">
           <MenuItem name="0">
-          <h1>SCUBBS</h1>
+          <v-link href="/SCUBBS">
+            <h1>SCUBBS</h1>
+          </v-link>
           </MenuItem>
           <MenuItem name="1">
-          <router-link to="/">
+          <v-link href="/">
             <Icon type="ios-paper"></Icon>青春广场
-          </router-link>
+          </v-link>
           </MenuItem>
           <MenuItem name="2">
-          <Icon type="ios-people"></Icon>瞎BB
+          <v-link href="/xbb">
+            <Icon type="ios-people"></Icon>瞎BB
+          </v-link>
           </MenuItem>
           <MenuItem name="3">
           <Icon type="heart"></Icon>表白墙
@@ -55,6 +59,8 @@
 </template>
 
 <script>
+import VLink from '../VLink.vue'
+
 export default {
   data() {
     return {
@@ -83,6 +89,9 @@ export default {
           }
         });
     }
+  },
+  components: {
+    VLink
   }
 };
 </script>
