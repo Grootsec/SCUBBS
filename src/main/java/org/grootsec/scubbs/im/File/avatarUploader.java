@@ -29,6 +29,8 @@ import static org.grootsec.scubbs.im.File.getFileSHA1.getSHA1String;
 @Component
 @Path("/avatarupload")
 public class avatarUploader {
+    private static String rootpath  = "/file/pic/";
+
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
@@ -53,14 +55,7 @@ public class avatarUploader {
             }
 
             filename = getSHA1String(tempFile);
-            String filepath = "/file/" + filename + "." + filetype;
-
-            JSONObject response = new JSONObject();
-            response.put("code", 1);
-            response.put("filename", filename);
-            response.put("filetype", filetype);
-            response.put("filepath", "/file/pic/" + filename + "." + filetype);
-            response.put("thumbnailpath", "/file/pic/thumbnail" + filename + "." + filetype);
+            String filepath = rootpath + filename + "." + filetype;
 
             if (!copyFile(tempFile, filepath)) {
                 return Response.status(400).entity(unknownError()).build();
@@ -69,7 +64,15 @@ public class avatarUploader {
             if (!cutImage(filename, filetype)) {
                 return Response.status(400).entity(unknownError()).build();
             }
-            final boolean delete = tempFile.delete();
+
+            JSONObject response = new JSONObject();
+            response.put("code", 1);
+            response.put("filename", filename);
+            response.put("filetype", filetype);
+            response.put("filepath", "/file/pic/" + filename + "." + filetype);
+            response.put("thumbnailpath", "/file/pic/thumbnail/" + filename + "." + filetype);
+
+            tempFile.delete();
             return Response.status(200).entity(response).build();
 
         } catch (IOException e) {
@@ -87,7 +90,7 @@ public class avatarUploader {
                     if (tag.getTagName().equals("Expected File Name Extension")) {
                         filetype = tag.getDescription();
                     }
-                    System.out.println(tag.getTagName() + " | " + tag.getDescription() + " | " + tag.getTagType());
+//                    System.out.println(tag.getTagName() + " | " + tag.getDescription() + " | " + tag.getTagType());
                 }
             }
         } catch (ImageProcessingException e) {
@@ -102,21 +105,13 @@ public class avatarUploader {
     }
 
     private boolean copyFile(File tempfile, String filepath) {
-        try {
-            java.nio.file.Path source = Paths.get(tempfile.getPath());
-            java.nio.file.Path destination = Paths.get(filepath);
-
-            Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        if (FileCopyer.copyFile(tempfile, filepath)) return true;
+        return false;
     }
 
     private boolean cutImage(String filename, String filetype) {
-        String filepath = "/file/" + filename + "." + filetype;
-        String thumbnailpath = "/file/thumbnail/" + filename + "." + filetype;
+        String filepath = rootpath + filename + "." + filetype;
+        String thumbnailpath = rootpath + "thumbnail/" + filename + "." + filetype;
         try {
             Thumbnails.of(filepath)
                     .size(200, 200)

@@ -12,8 +12,8 @@ public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
         register(MultiPartFeature.class);
-        packages("org.grootsec.scubbs.im.test");
-        packages("org.grootsec.scubbs.im.File");
-        packages("org.grootsec.scubbs.im.Error");
+        register(org.grootsec.scubbs.im.Error.ErrorHandler.class);
+        register(org.grootsec.scubbs.im.File.avatarUploader.class);
+        register(org.grootsec.scubbs.im.File.fileUploader.class);
     }
 }
