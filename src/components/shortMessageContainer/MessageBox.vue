@@ -125,7 +125,15 @@
         return info.trim().split(' ');
       },
       comment() {
-
+        this.$http.post('/api/v1/addCritical',{
+          messageid: this.post.messageid,
+          content: this.comment_content
+        }).then(res => {
+          res = res.body;
+          if (res.code == 0) {
+            this.itemttt = res.info
+          }
+        })
       }
     }
   }
