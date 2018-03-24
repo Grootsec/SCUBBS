@@ -67,26 +67,14 @@ export default {
       value: '',
       addresslist: this.$store.state.addressInfo.address,
       address: "",
-      defaultList: [{
-          'name': '/file/pic/6d80e95181bb9a7e9e0b1cbd34ce80db37231d19.jpg',
-          'url': '/file/pic/thumbnail/6d80e95181bb9a7e9e0b1cbd34ce80db37231d19.jpg'
-        },
-        {
-          'name': 'bc7521e033abdd1e92222d733590f104',
-          'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
-        }
+      defaultList: [
+
       ],
       imgName: '',
       visible: false,
       uploadList: [],
-      img_list: [{
-          'name': '/file/pic/6d80e95181bb9a7e9e0b1cbd34ce80db37231d19.jpg',
-          'url': '/file/pic/thumbnail/6d80e95181bb9a7e9e0b1cbd34ce80db37231d19.jpg'
-        },
-        {
-          'name': 'bc7521e033abdd1e92222d733590f104',
-          'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
-        }
+      img_list: [
+
       ]
 
     }

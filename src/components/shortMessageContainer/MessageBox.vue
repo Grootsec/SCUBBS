@@ -11,10 +11,10 @@
       <div>
         <p v-html="replaceContent(post.content)"></p>
       </div>
-      <div class="demo-upload-list" v-for="item in uploadList">
-          <img :src="item.url">
+      <div class="demo-upload-list" v-for="item in img_list">
+        <img :src="item">
           <div class="demo-upload-list-cover">
-            <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
+            <Icon type="ios-eye-outline" @click.native="handleView(item)"></Icon>
           </div>
       </div>
     </Card>
@@ -41,8 +41,14 @@ export default {
   },
   data() {
     return ({
+      visible: false,
       items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     })
+  },
+  computed: {
+    img_list() {
+      return this.imgContent(this.post.content);
+    }
   },
   methods: {
     report(id) {
@@ -90,6 +96,11 @@ export default {
         info = info.replace('@'+e.value,  '<a href=' +url+'>' + '@' + e.label + '</a>');
       });
       return info;
+    },
+    imgContent(content) {
+      let info = content.split('丨')[1];
+      console.log(info);
+      return info.trim().split(' ');
     }
   }
 }
