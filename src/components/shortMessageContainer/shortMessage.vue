@@ -62,7 +62,8 @@
         <Avatar>A</Avatar>最热消息
       </p>
       <ol style="margin: 0px 2rem;">
-        <li><a>123</a></li>
+        <li v-for="(item,index) in hotInfo" :key="index" v-if="item"><a @click="handleMoreClick(item)">{{filterContent(item.content)}}</a>
+        </li>
       </ol>
     </Card>
     <Card>
@@ -70,7 +71,7 @@
         <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg">A</Avatar>最热评论
       </p>
       <ol style="margin: 0px 2rem;">
-        <li><a>123</a></li>
+        <li v-for="(item, index) in comment_info" :key="index" v-if="item">{{item.content}}</li>
       </ol>
     </Card>
     </Col>
@@ -104,10 +105,18 @@ export default {
         username: 'tempuser'
       }],
       list2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      list1: []
+      list1: [],
+      hotInfo: [],
+      comment_info: []
     }
   },
   methods: {
+    getname(item) {
+      if (!item) {
+        console.log(item);
+        return this.$store.getters.getnameById(item.sendid).label;
+      }
+    },
     report(id) {
       this.$http.post("/api/v1/setMark", {
           messageid: id,
@@ -208,7 +217,19 @@ export default {
     this.$http.get('/api/v1/getMessageById?id=0&type=0')
       .then(function(res) {
         this.list1 = res.body.info;
-      })
+      });
+    this.$http.get('/api/v1/getHotInfo').then(function (res) {
+      res = res.body;
+      if (res.code == 0) {
+        this.hotInfo = res.info;
+      }
+    });
+    this.$http.get('/api/v1/getRecentCritical').then((res) => {
+      res = res.body;
+      if (res.code == 0) {
+        this.comment_info = res.info;
+      }
+    })
   },
   computed: {
     list() {
