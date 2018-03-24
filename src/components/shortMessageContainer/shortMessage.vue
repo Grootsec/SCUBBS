@@ -85,7 +85,7 @@
     </div>
   </Modal>
   <Modal v-model="modal2">
-    <MessageBox :post="item"></MessageBox>
+    <MessageBox :post="item" :key="refreshid" :v-if="refreshif"></MessageBox>
     <div slot="footer">
       <Button type="ghost" long @click="modal2 = false">关闭</Button>
     </div>
@@ -101,6 +101,8 @@ export default {
     return {
       modal1: false,
       modal2: false,
+      refreshid: 1,
+      refreshif: true,
       item: [],
       items: [{
         username: 'tempuser'
@@ -150,43 +152,46 @@ export default {
   methods: {
     report(id) {
       this.$http.post("/api/v1/setMark", {
-        messageid: id,
-        type: 'bad',
-        option: 1
-      }).then(function (res) {
-        res = res.body;
-        if (res.code == 0) {
-          this.$Message.success({
-            content: '举报成功',
-            duration: 0.5,
-            closable: true
-          })
-        }
-      })
+          messageid: id,
+          type: 'bad',
+          option: 1
+        })
+        .then(function(res) {
+          res = res.body;
+          if (res.code == 0) {
+            this.$Message.success({
+              content: '举报成功',
+              duration: 0.5,
+              closable: true
+            })
+          }
+        })
     },
     like(id) {
       this.$http.post("/api/v1/setMark", {
-        messageid: id,
-        type: 'good',
-        option: 1
-      }).then(function (res) {
-        res = res.body;
-        if (res.code == 0) {
-          this.$Message.success({
-            content: '点赞成功',
-            duration: 0.5,
-            closable: true
-          })
-        }
-      })
+          messageid: id,
+          type: 'good',
+          option: 1
+        })
+        .then(function(res) {
+          res = res.body;
+          if (res.code == 0) {
+            this.$Message.success({
+              content: '点赞成功',
+              duration: 0.5,
+              closable: true
+            })
+          }
+        })
     },
     changeLimit() {},
     handleReachTop() {
       return new Promise(resolve => {
         setTimeout(() => {
-          resolve(this.$http.get('/api/v1/getMessageById?id=0&type=0').then(function(res){
-            this.list1 = res.body.info;
-          }));
+          resolve(this.$http.get('/api/v1/getMessageById?id=0&type=0')
+            .then(function(res) {
+              this.list1 = res.body.info;
+            }));
         }, 2000);
       });
     },
@@ -197,18 +202,19 @@ export default {
           for (let i = 1; i < 11; i++) {
             this.list1.push(last + i);
           }
-          resolve(this.$http.get('/api/v1/getMessageById?type=0&id=' + last.messageid).then(function (res) {
-            if (res.body.code == 0) {
-              res.body.info.forEach(e => {
-                this.list1.push(e);
-              });
-              this.$Message.success({
-                content: '刷新成功',
-                duration: 0.5,
-                closable: true
-              })
-            }
-          }));
+          resolve(this.$http.get('/api/v1/getMessageById?type=0&id=' + last.messageid)
+            .then(function(res) {
+              if (res.body.code == 0) {
+                res.body.info.forEach(e => {
+                  this.list1.push(e);
+                });
+                this.$Message.success({
+                  content: '刷新成功',
+                  duration: 0.5,
+                  closable: true
+                })
+              }
+            }));
         }, 2000);
       });
     },
@@ -218,32 +224,36 @@ export default {
     success() {
       this.$Message.success('This is a success tip');
     },
-    handleMoreClick(item){
-      this.modal2 = true;
+    handleMoreClick(item) {
+      this.refreshid = this.refreshid + 1;
+      this.refreshif = false;
+      this.refreshif = true;
       this.item = item;
+      this.modal2 = true;
     },
     filterContent(info) {
       info = info.replace(/@(.*?) /g, ' ');
       info = info.replace(/丨.*/g, ' ');
       return info
     },
-    replaceContent(content){
-      let info = content.replace(/丨.*/g,' ');
+    replaceContent(content) {
+      let info = content.replace(/丨.*/g, ' ');
       this.$store.state.addressInfo.address.forEach(e => {
         let url = '#/user/' + e.value;
-        info = info.replace('@'+e.value,  '<a href=' +url+'>' + '@' + e.label + '</a>');
+        info = info.replace('@' + e.value, '<a href=' + url + '>' + '@' + e.label + '</a>');
       });
       return info;
     },
   },
   mounted() {
     this.changeLimit();
-    this.$http.get('/api/v1/getMessageById?id=0&type=0').then(function(res){
-      this.list1 = res.body.info;
-    })
+    this.$http.get('/api/v1/getMessageById?id=0&type=0')
+      .then(function(res) {
+        this.list1 = res.body.info;
+      })
   },
-  computed:{
-    list(){
+  computed: {
+    list() {
       return this.list1;
     }
   },
