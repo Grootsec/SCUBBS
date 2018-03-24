@@ -4,13 +4,13 @@
     <Col span="6">
     <Card>
       <p slot="title">
-        <Avatar>U</Avatar>
+        <Avatar :src="$store.state.info.avatar"></Avatar>
         {{$store.state.info.name}}
       </p>
-      <a href="#" slot="extra" @click.prevent="changeLimit">
+      <router-link slot="extra" to="/setting">
         <Icon type="ios-loop-strong"></Icon>
         设置
-      </a>
+      </router-link>
       <table>
         <tr>
           <td>姓名</td>
@@ -159,17 +159,19 @@ export default {
           resolve(this.$http.get('/api/v1/getMessageById?id=0&type=0')
             .then(function(res) {
               this.list1 = res.body.info;
+              this.$Message.success({
+                content: '刷新成功',
+                duration: 0.5,
+                closable: true
+              })
             }));
-        }, 2000);
+        }, 200);
       });
     },
     handleReachBottom() {
       return new Promise(resolve => {
         setTimeout(() => {
           const last = this.list1[this.list1.length - 1];
-          for (let i = 1; i < 11; i++) {
-            this.list1.push(last + i);
-          }
           resolve(this.$http.get('/api/v1/getMessageById?type=0&id=' + last.messageid)
             .then(function(res) {
               if (res.body.code == 0) {
@@ -183,7 +185,7 @@ export default {
                 })
               }
             }));
-        }, 2000);
+        }, 200);
       });
     },
     ok() {

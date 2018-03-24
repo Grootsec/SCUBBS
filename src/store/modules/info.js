@@ -7,11 +7,14 @@ const userinfo = {
     cookies: '', // cookies
     avatar: '', // 头像地址
     introduction: '测试', // 简介
-    profession:"",
+    profession: "",
     grade: '',
     sex: '',
     stuclass: '',
     roles: [], // 角色
+    beMarkCount: '5',
+    messageCount: '3',
+    beCriticalCount: '2',
   },
   mutations: {
     login(state, info) {
@@ -24,6 +27,9 @@ const userinfo = {
       state.sex = info.sex;
       state.grade = info.grade;
       state.profession = info.profession;
+      state.beMarkCount = info.beMarkCount;
+      state.messageCount = info.messageCount;
+      state.beCriticalCount = info.beCriticalCount;
     },
     fetch(state, info) {
       state.name = info.name;
@@ -35,6 +41,9 @@ const userinfo = {
       state.sex = info.sex;
       state.grade = info.grade;
       state.profession = info.profession;
+      state.beMarkCount = info.beMarkCount;
+      state.messageCount = info.messageCount;
+      state.beCriticalCount = info.beCriticalCount;
     }
   }
 };

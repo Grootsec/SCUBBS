@@ -42,10 +42,45 @@
 </template>
 
 <script>
-export default {
-  watch: {
-    post(newpost, oldpost) {
-      if (newpost.messageid === oldpost.messageid) return;
+  export default {
+    watch: {
+      post(newpost, oldpost) {
+        if (newpost.messageid === oldpost.messageid) return;
+        this.$http.get('/api/v1/getCritical?messageid=' + this.post.messageid)
+          .then(res => {
+            res = res.body;
+            if (res.code == 0) {
+              this.itemttt = [];
+              res.info.forEach((e) => {
+                e.link = this.$store.getters.getnameById(e.sendid)
+                  .label;
+                this.itemttt.push(e);
+              });
+              console.log(this.itemttt);
+            }
+          })
+        this.$forceUpdate();
+      }
+    },
+    props: {
+      post: {},
+    },
+    data() {
+      return ({
+        visible: false,
+        comment_content: '',
+        itemttt: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      })
+    },
+    computed: {
+      img_list() {
+        return this.imgContent(this.post.content);
+      },
+      items() {
+        return this.itemttt;
+      }
+    },
+    mounted() {
       this.$http.get('/api/v1/getCritical?messageid=' + this.post.messageid)
         .then(res => {
           res = res.body;
@@ -59,111 +94,97 @@ export default {
             console.log(this.itemttt);
           }
         })
-      this.$forceUpdate();
-    }
-  },
-  props: {
-    post: {},
-  },
-  data() {
-    return ({
-      visible: false,
-      comment_content: '',
-      itemttt: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    })
-  },
-  computed: {
-    img_list() {
-      return this.imgContent(this.post.content);
     },
-    items() {
-      return this.itemttt;
-    }
-  },
-  mounted() {
-    this.$http.get('/api/v1/getCritical?messageid=' + this.post.messageid)
-      .then(res => {
-        res = res.body;
-        if (res.code == 0) {
-          this.itemttt = [];
-          res.info.forEach((e) => {
-            e.link = this.$store.getters.getnameById(e.sendid)
-              .label;
-            this.itemttt.push(e);
-          });
-          console.log(this.itemttt);
-        }
-      })
-  },
-  methods: {
-    report(id) {
-      this.$http.post("/api/v1/setMark", {
+    methods: {
+      report(id) {
+        this.$http.post("/api/v1/setMark", {
           messageid: id,
           type: 'bad',
           option: 1
         })
-        .then(function(res) {
-          res = res.body;
-          if (res.code == 0) {
-            this.post.badcount = res.count;
-            this.$Message.success({
-              content: '举报成功',
-              duration: 0.5,
-              closable: true
-            })
-          }
-        })
-    },
-    like(id) {
-      this.$http.post("/api/v1/setMark", {
+          .then(function (res) {
+            res = res.body;
+            if (res.count) {
+              this.post.badcount = res.count;
+              this.$Message.success({
+                content: '举报成功',
+                duration: 0.5,
+                closable: true
+              })
+            }else{
+              this.$Message.error({
+                content: '举报失败',
+                duration: 0.5,
+                closable: true
+              })
+            }
+          })
+      },
+      like(id) {
+        this.$http.post("/api/v1/setMark", {
           messageid: id,
           type: 'good',
           option: 1
         })
-        .then(function(res) {
-          res = res.body;
-          if (res.code == 0) {
-            this.post.goodcount = res.count;
-            this.$Message.success({
-              content: '点赞成功',
-              duration: 0.5,
-              closable: true
-            })
-          }
-        })
-    },
-    handleView(name) {
-      this.imgName = name;
-      this.visible = true;
-    },
-    replaceContent(content) {
-      let info = content.replace(/丨.*/g, ' ');
-      this.$store.state.addressInfo.address.forEach(e => {
-        let url = '#/user/' + e.value;
-        info = info.replace('@' + e.value, '<a href=' + url + '>' + '@' + e.label + '</a>');
-      });
-      return info;
-    },
-    imgContent(content) {
-      let info = content.split('丨')[1];
-      console.log(info);
-      return info.trim()
-        .split(' ');
-    },
-    comment() {
-      this.$http.post('/api/v1/addCritical', {
+          .then(function (res) {
+            res = res.body;
+            if (res.count) {
+              this.post.goodcount = res.count;
+              this.$Message.success({
+                content: '点赞成功',
+                duration: 0.5,
+                closable: true
+              })
+            }else{
+              this.$Message.error({
+                content: '点赞失败',
+                duration: 0.5,
+                closable: true
+              })
+            }
+          })
+      },
+      handleView(name) {
+        this.imgName = name;
+        this.visible = true;
+      },
+      replaceContent(content) {
+        let info = content.replace(/丨.*/g, ' ');
+        this.$store.state.addressInfo.address.forEach(e => {
+          let url = '#/user/' + e.value;
+          info = info.replace('@' + e.value, '<a href=' + url + '>' + '@' + e.label + '</a>');
+        });
+        return info;
+      },
+      imgContent(content) {
+        let info = content.split('丨')[1];
+        console.log(info);
+        return info.trim()
+          .split(' ');
+      },
+      comment() {
+        this.itemttt.push({
+          "time": '2018-03-24 05:13:46',
+          "id": this.$store.state.info.no,
+          "link": this.$store.state.info.name,
+          "content": this.comment_content
+        });
+        this.$http.post('/api/v1/addCritical', {
           messageid: this.post.messageid,
           content: this.comment_content
         })
-        .then(res => {
-          res = res.body;
-          if (res.code == 0) {
-            this.itemttt = res.info
-          }
-        })
+          .then(res => {
+            res = res.body;
+            if (res.code == 0) {
+              this.$Notice.success({
+                title: '成功',
+                desc: '成功更新信息'
+              });
+            }
+          })
+      }
     }
   }
-}
 </script>
 
 <style lang="css">
