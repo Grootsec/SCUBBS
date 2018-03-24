@@ -98,7 +98,7 @@ export default {
           return h('AddressSelect', {
             props: {
               address: this.value,
-              addresslist: this.addresslist,
+              addresslist: this.$store.state.addressInfo.address,
             },
             on: {
               ontest: (val) => {
