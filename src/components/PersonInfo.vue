@@ -44,7 +44,7 @@
               </table>
             </Card>
             <Card style="margin-top: 0.5rem;">
-              <p>{{introduction}}</p>
+              <p style="text-align: center;">{{introduction}}</p>
             </Card>
           </Card>
           <div style="border-style: dashed;border-width: 1px;height: 1px;width: 100%;margin-top: 1rem;margin-bottom: 1rem;"></div>
@@ -52,7 +52,7 @@
             <p slot="title">
               {{username}}的组织
             </p>
-            <Card v-for="team in teams">
+            <Card v-for="team in teams" style="margin-bottom: 0.5rem;">
               <p slot="title">
                 <Avatar size="large" :src="team.avatar"></Avatar>
                 {{team.teamname}}
@@ -61,7 +61,7 @@
                 <Icon type="forward"></Icon>
                 查看
               </a>
-              <p>{{team.info}}</p>
+              <p style="text-align: center;">{{team.info}}</p>
             </Card>
           </Card>
           </Col>
