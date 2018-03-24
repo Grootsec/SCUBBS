@@ -104,11 +104,12 @@ export default {
               ontest: (val) => {
                 this.value = val;
                 let name = "";
-                this.addresslist.forEach(function(item) {
+                this.$store.state.addressInfo.address.forEach(function (item) {
                   if (item.value === val) {
                     name = item.label;
                   }
                 });
+                console.log(val);
                 this.postcontent += "@" + name + " ";
                 this.hiddencontent += "@" + val + " ";
                 this.atlist.push({

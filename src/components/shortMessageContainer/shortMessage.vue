@@ -164,7 +164,18 @@ export default {
           for (let i = 1; i < 11; i++) {
             this.list1.push(last + i);
           }
-          resolve();
+          resolve(this.$http.get('/api/v1/getMessageById?type=0&id=' + last.messageid).then(function (res) {
+            if (res.body.code == 0) {
+              res.body.info.forEach(e => {
+                this.list1.push(e);
+              });
+              this.$Message.success({
+                content: '刷新成功',
+                duration: 0.5,
+                closable: true
+              })
+            }
+          }));
         }, 2000);
       });
     },
