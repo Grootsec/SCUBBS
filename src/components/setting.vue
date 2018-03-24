@@ -56,6 +56,12 @@
             <div style="margin-top: 0.5rem;" v-if="showEdit">
               <Button type="primary" shape="circle" long @click.prevent="handleSubmit">确定</Button>
             </div>
+            <Upload v-if="showEdit" style="margin-top: 1rem;" multiple type="drag" action="/api/v1/im/avatarupload" :on-success="handleSuccess" :format="['jpg','jpeg','png','gif']" :max-size="2048" :on-format-error="handleFormatError">
+              <div style="padding: 20px 0">
+                <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                <p>点击选择或拖入您的头像</p>
+              </div>
+            </Upload>
           </Card>
           <div style="border-style: dashed;border-width: 1px;height: 1px;width: 100%;margin-top: 1rem;margin-bottom: 1rem;"></div>
           <Card class="tranCrad">
@@ -120,7 +126,10 @@ export default {
       sex: "",
       vote: "",
       items: [],
-      teams: []
+      teams: [],
+      file: {
+        url: ''
+      }
     }
   },
   components: {
@@ -131,6 +140,26 @@ export default {
     this.getUserInfo();
   },
   methods: {
+    handleFormatError() {
+      this.$Notice.success({
+        title: '文件格式错误',
+        desc: '仅支持图像文件格式'
+      });
+    },
+    handleSuccess(res, file) {
+      this.file.url = res.thumbnailpath;
+      this.file.name = res.filepath;
+      this.$http.post("/api/v1/updateIcon", {
+          id: this.$store.state.info.no,
+          icon: this.file.url
+        })
+        .then((res) => {
+          this.$Notice.success({
+            title: '成功',
+            desc: '上传头像成功'
+          });
+        });
+    },
     changeInfo() {
       this.showEdit = true;
     },
@@ -138,6 +167,7 @@ export default {
       this.$http.post("/api/v1/updateObject", {
           id: this.$store.state.info.no,
           name: this.username,
+          icon: this.file.url,
           description: this.introduction
         })
         .then(function(res) {
@@ -146,6 +176,7 @@ export default {
             desc: '成功更新信息'
           });
           this.showEdit = false;
+          this.getUserInfo();
         })
     },
     getUserInfo() {
@@ -160,6 +191,7 @@ export default {
           this.grade = res.grade;
           this.profession = res.profession;
           this.name = res.name;
+          this.items = [];
           if (res.message) {
             res.message.forEach((e) => {
               let msg = e.content.split("丨")[0];
@@ -184,6 +216,7 @@ export default {
         .then((res) => {
           res = res.body;
           if (res.info) {
+            this.teams = [];
             res.info.forEach((e) => {
               let team = {
                 "teamname": e.name,
