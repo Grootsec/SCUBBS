@@ -4,7 +4,8 @@
     <Col span="6">
     <Card>
       <p slot="title">
-        <Avatar>U</Avatar>我叫孔旻昊
+        <Avatar>U</Avatar>
+        {{$store.state.info.name}}
       </p>
       <a href="#" slot="extra" @click.prevent="changeLimit">
         <Icon type="ios-loop-strong"></Icon>
@@ -13,23 +14,23 @@
       <table>
         <tr>
           <td>姓名</td>
-          <td>孔旻昊</td>
+          <td>{{$store.state.info.name}}</td>
         </tr>
         <tr>
           <td>昵称</td>
-          <td>{{this.$store.state.info.nickname}}</td>
+          <td>{{$store.state.info.nickname}}</td>
         </tr>
         <tr>
           <td>发消息数</td>
-          <td>12222</td>
+          <td>{{$store.state.info.messageCount}}</td>
         </tr>
         <tr>
           <td>获得的赞</td>
-          <td>12222</td>
+          <td>{{$store.state.info.beMarkCount}}</td>
         </tr>
         <tr>
           <td>获得的评论数</td>
-          <td>12222</td>
+          <td>{{$store.state.info.beCriticalCount}}</td>
         </tr>
       </table>
     </Card>
