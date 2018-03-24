@@ -14,6 +14,7 @@ const logout = r => require.ensure([], () => r(require('../components/logout')),
 import test from "@/components/test"
 import Organization from "@/components/Organization"
 import index2 from "@/components/index2"
+import index3 from "@/components/index3"
 Vue.use(Router);
 
 export default new Router({
@@ -76,6 +77,11 @@ export default new Router({
       path: '/xbb',
       name: 'xbb',
       component: index2
+    },
+    {
+      path: '/bbq',
+      name: 'bbq',
+      component: index3
     }
   ]
 })

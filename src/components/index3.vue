@@ -14,7 +14,8 @@
 <script>
   import headers from './header/headers'
   import ifooter from './footer/ifooter'
-  import xbb from './shortMessageContainer/xbb'
+  import bbq from './shortMessageContainer/bbq'
+
   export default {
     data() {
       return {}
@@ -22,7 +23,7 @@
     components: {
       headers,
       ifooter,
-      xbb
+      bbq
     }
   }
 </script>
