@@ -45,7 +45,7 @@
             {{item.nickname}}
           </p>
           <div slot="extra">
-            <Button type="ghost" shape="circle" icon="heart" @click="like(item.messageid)">喜欢{{item.goodcount}}</Button>
+            <Button type="ghost" shape="circle" icon="heart" @click="like(item)">喜欢{{item.goodcount}}</Button>
             <Button type="error" shape="circle" icon="fireball" @click="report(item.messageid)">举报{{item.badcount}}
             </Button>
           </div>
@@ -118,7 +118,8 @@
       getname(item) {
         if (!item) {
           console.log(item);
-          return this.$store.getters.getnameById(item.sendid).label;
+          return this.$store.getters.getnameById(item.sendid)
+            .label;
         }
       },
       report(id) {
@@ -129,29 +130,28 @@
         })
           .then(function (res) {
             res = res.body;
-            if (res.code == 0) {
-              this.$Message.success({
-                content: '举报成功',
-                duration: 0.5,
-                closable: true
-              })
+            if (res.count) {
+              this.$Notice.warning({
+                title: '成功',
+                desc: '举报成功'
+              });
             }
           })
       },
-      like(id) {
+      like(item) {
         this.$http.post("/api/v1/setMark", {
-          messageid: id,
+          messageid: item.messageid,
           type: 'good',
           option: 1
         })
           .then(function (res) {
             res = res.body;
-            if (res.code == 0) {
-              this.$Message.success({
-                content: '点赞成功',
-                duration: 0.5,
-                closable: true
-              })
+            if (res.count) {
+              item.messageid = res.count;
+              this.$Notice.success({
+                title: '成功',
+                desc: '点赞成功'
+              });
             }
           })
       },
@@ -225,18 +225,20 @@
         .then(function (res) {
           this.list1 = res.body.info;
         });
-      this.$http.get('/api/v1/getHotInfo').then(function (res) {
-        res = res.body;
-        if (res.code == 0) {
-          this.hotInfo = res.info;
-        }
-      });
-      this.$http.get('/api/v1/getRecentCritical').then((res) => {
-        res = res.body;
-        if (res.code == 0) {
-          this.comment_info = res.info;
-        }
-      })
+      this.$http.get('/api/v1/getHotInfo')
+        .then(function (res) {
+          res = res.body;
+          if (res.code == 0) {
+            this.hotInfo = res.info;
+          }
+        });
+      this.$http.get('/api/v1/getRecentCritical')
+        .then((res) => {
+          res = res.body;
+          if (res.code == 0) {
+            this.comment_info = res.info;
+          }
+        })
     },
     computed: {
       list() {

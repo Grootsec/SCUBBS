@@ -2,7 +2,6 @@
   <Card class="card">
     <p slot="title">
       <Avatar>U</Avatar>
-      瞎bb
     </p>
     <div slot="extra">
       <Button type="ghost" shape="circle" icon="heart" @click="like(post.messageid)">喜欢:{{post.goodcount}}</Button>
