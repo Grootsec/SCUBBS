@@ -159,6 +159,9 @@
       imgContent(content) {
         let info = content.split('丨')[1];
         console.log(info);
+        if (info.indexOf("pic") === -1) {
+          return [];
+        }
         return info.trim()
           .split(' ');
       },
