@@ -4,22 +4,74 @@
   <BackTop></BackTop>
   <Layout>
     <Content :style="{margin: '88px 70px 0', minHeight: '500px'}">
-      <Row :gutter="16">
-        <Col span="6">
-        <div>col-8</div>
-        </Col>
-        <Col span="6">
-        <div>col-16</div>
-        </Col>
-      </Row>
-      <Row>
-        <h2>动态</h2>
-        <timeline-bur>
-          <timeline-item-bur :date="item.time" v-for="item of new_dynamic" :key="item.value" type="primary">
-            <p>{{filterContent(item.content)}}</p>
-          </timeline-item-bur>
-        </timeline-bur>
-      </Row>
+      <div>
+        <Row :gutter="16">
+          <Col span="8">
+          <Card>
+            <p slot="title">
+              <Avatar size="large" :src="avatar"></Avatar>
+              {{username}}
+            </p>
+            <Button slot="extra" type="ghost" shape="circle" icon="heart" @click="success">点赞:0</Button>
+            <Card>
+              <table>
+                <tr>
+                  <td>姓名</td>
+                  <td>{{name}}</td>
+                </tr>
+                <tr>
+                  <td>性别</td>
+                  <td>{{sex}}</td>
+                </tr>
+                <tr>
+                  <td>年级</td>
+                  <td>{{grade}}</td>
+                </tr>
+                <tr>
+                  <td>学院</td>
+                  <td>{{college}}</td>
+                </tr>
+                <tr>
+                  <td>专业</td>
+                  <td>{{profession}}</td>
+                </tr>
+              </table>
+            </Card>
+            <Card>
+              <p>{{introduction}}</p>
+            </Card>
+          </Card>
+          <div style="border-style: dashed;border-width: 1px;height: 1px;width: 100%;margin-top: 1rem;margin-bottom: 1rem;"></div>
+          <Card>
+            <p slot="title">
+              {{username}}的组织
+            </p>
+            <a href="#" slot="extra" @click.prevent="changeLimit">
+              <Icon type="ios-loop-strong"></Icon>
+              Change
+            </a>
+
+          </Card>
+          </Col>
+          <Col span="16">
+          <Card>
+            <p slot="title">
+              <Icon type="ios-film-outline"></Icon>
+              时间线
+            </p>
+            <a href="#" slot="extra" @click.prevent="changeLimit">
+              <Icon type="ios-loop-strong"></Icon>
+              Change
+            </a>
+            <timeline-bur>
+              <timeline-item-bur :date="item.time" v-for="item of new_dynamic" :key="item.value" type="primary">
+                <p>{{filterContent(item.content)}}</p>
+              </timeline-item-bur>
+            </timeline-bur>
+          </Card>
+          </Col>
+        </Row>
+      </div>
     </Content>
   </Layout>
   <ifooter></ifooter>
@@ -34,6 +86,7 @@ export default {
   name: "person-info",
   data() {
     return {
+      name: "",
       username: "",
       nickname: "",
       college: "",
@@ -79,6 +132,7 @@ export default {
           this.sex = res.sex;
           this.grade = res.grade;
           this.profession = res.profession;
+          this.name = res.name;
         });
       this.$http.get('/api/v1/getTeamInfo' + '?studentnumber=' + user_id)
         .then();
