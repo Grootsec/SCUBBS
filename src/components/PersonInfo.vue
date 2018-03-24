@@ -7,12 +7,14 @@
       <div>
         <Row :gutter="16">
           <Col span="8">
-          <Card>
+          <Card class="tranCrad">
             <p slot="title">
               <Avatar size="large" :src="avatar"></Avatar>
               {{username}}
             </p>
-            <Button slot="extra" type="ghost" shape="circle" icon="heart" @click="success">点赞:0</Button>
+            <div slot="extra">
+              <Button type="ghost" shape="circle" icon="heart" @click="success">点赞:0</Button>
+            </div>
             <Card>
               <table>
                 <tr>
@@ -35,18 +37,32 @@
                   <td>专业</td>
                   <td>{{profession}}</td>
                 </tr>
+                <tr>
+                  <td>点赞</td>
+                  <td>{{vote}} 次</td>
+                </tr>
               </table>
             </Card>
-            <Card>
+            <Card style="margin-top: 0.5rem;">
               <p>{{introduction}}</p>
             </Card>
           </Card>
           <div style="border-style: dashed;border-width: 1px;height: 1px;width: 100%;margin-top: 1rem;margin-bottom: 1rem;"></div>
-          <Card>
+          <Card class="tranCrad">
             <p slot="title">
               {{username}}的组织
             </p>
-
+            <Card v-for="team in teams">
+              <p slot="title">
+                <Avatar size="large" :src="team.avatar"></Avatar>
+                {{team.teamname}}
+              </p>
+              <a :href="team.link" slot="extra" target="_blank">
+                <Icon type="forward"></Icon>
+                查看
+              </a>
+              <p>{{team.info}}</p>
+            </Card>
           </Card>
           </Col>
           <Col span="16">
@@ -56,8 +72,11 @@
               时间线
             </p>
             <timeline-bur>
-              <timeline-item-bur :date="item.time" v-for="item of new_dynamic" :key="item.value" type="primary">
-                <p>{{filterContent(item.content)}}</p>
+              <timeline-item-bur :date="item.date" v-for="item of items" type="primary">
+                <!-- <p>{{filterContent(item.content)}}</p> -->
+                <p>
+                  <span>{{item.contentType}}</span><span v-html="item.content" class="postinfo"></span>
+                </p>
               </timeline-item-bur>
             </timeline-bur>
           </Card>
@@ -87,21 +106,9 @@ export default {
       profession: "",
       grade: "",
       sex: "",
-      new_message: [],
-      new_secret_message: [],
-      new_dynamic: [{
-        "date": "2分钟前",
-        "content": "@2015141463198 @2015141463077 测试数据丨a42bdcc1178e62b4694c830f028db5c0 bc7521e033abdd1e92222d733590f104 "
-      }, {
-        "date": "2分钟前",
-        "content": "逼王真是强"
-      }, {
-        "date": "1996/1/2",
-        "content": "逼王诞生于云南"
-      }, {
-        "date": "2分钟前",
-        "content": "逼王真是强"
-      }]
+      vote: "",
+      items: [],
+      teams: []
     }
   },
   components: {
@@ -125,9 +132,41 @@ export default {
           this.grade = res.grade;
           this.profession = res.profession;
           this.name = res.name;
+          if (res.message) {
+            res.message.forEach((e) => {
+              let msg = e.content.split("丨")[0];
+              this.$store.state.addressInfo.address.forEach((person) => {
+                msg = msg.replace('@' + person.value, '<a href="/#/user/' + person.value + '" target="_blank">@' + person.label + '</a>');
+              });
+              this.items.push({
+                "date": e.time,
+                "content": msg,
+                "contentType": '发消息: '
+              });
+            });
+          };
+          this.vote = res.mark.length - res.mark.filter((e) => {
+              if (e.type == 'good') {
+                return e;
+              }
+            })
+            .length;
         });
       this.$http.get('/api/v1/getTeamInfo' + '?studentnumber=' + user_id)
-        .then();
+        .then((res) => {
+          res = res.body;
+          if (res.info) {
+            res.info.forEach((e) => {
+              let team = {
+                "teamname": e.name,
+                "avatar": e.icon,
+                "info": e.description,
+                "link": '/#/organization/' + e.id
+              };
+              this.teams.push(team);
+            });
+          }
+        });
     },
     filterContent(info) {
       info = info.replace(/@(.*?) /g, ' ');
@@ -138,16 +177,13 @@ export default {
 }
 </script>
 
-<style scoped>
-.border {
-  border: 1px solid #e9eaec;
-  height: 1px;
-  transform: scaleY(.5);
+<style>
+.ivu-card-head {
+  background-color: #fff;
 }
 
-.card {
-  margin: auto;
-  width: 40vw;
+.tranCrad {
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .ivu-card-head p,
@@ -155,7 +191,8 @@ export default {
   height: auto;
 }
 
-.ivu-avatar {
-  margin-right: 0.5rem;
+.postinfo {
+  font-style: italic;
+  color: #b7b7b7;
 }
 </style>
