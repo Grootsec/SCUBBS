@@ -17,7 +17,7 @@
         </tr>
         <tr>
           <td>昵称</td>
-          <td>xxx</td>
+          <td>{{this.$store.state.info.nickname}}</td>
         </tr>
         <tr>
           <td>发消息数</td>
@@ -151,10 +151,6 @@ export default {
     handleReachTop() {
       return new Promise(resolve => {
         setTimeout(() => {
-          const first = this.list2[0];
-          for (let i = 1; i < 11; i++) {
-            this.list2.unshift(first - i);
-          }
           resolve(this.$http.get('/api/v1/getMessageById?id=0&type=0').then(function(res){
             this.list1 = res.body.info;
           }));
