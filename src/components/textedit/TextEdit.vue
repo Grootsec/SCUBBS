@@ -43,7 +43,7 @@
       <Radio label="本专业"></Radio>
     </RadioGroup>
   </div>
-  <Button type="success" long @click="submit">SUBMIT</Button>
+  <Button type="success" long @click="submit">发送</Button>
 </div>
 </template>
 
@@ -92,7 +92,7 @@ export default {
               ontest: (val) => {
                 this.value = val;
                 let name = "";
-                this.$store.state.addressInfo.address.forEach(function (item) {
+                this.$store.state.addressInfo.address.forEach(function(item) {
                   if (item.value === val) {
                     name = item.label;
                   }
@@ -118,20 +118,21 @@ export default {
       let location = this.location;
       let type = this.type;
       this.$http.post("/api/v1/sendMessage", {
-        content: this.submitcontent,
-        isanonymous: anonymous,
-        location: location,
-        type: type
-      }).then(function(res){
-        res = res.body;
-        if (res.code==0){
-          this.$Message.success({
-            content: '短消息发送成功',
-            duration: 0.5,
-            closable: true
-          })
-        }
-      })
+          content: this.submitcontent,
+          isanonymous: anonymous,
+          location: location,
+          type: type
+        })
+        .then(function(res) {
+          res = res.body;
+          if (res.code == 0) {
+            this.$Notice.success({
+              title: '成功',
+              desc: '短消息发送成功'
+            });
+            this.submitcontent = '';
+          }
+        })
 
     },
     handleView(name) {
