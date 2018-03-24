@@ -25,9 +25,11 @@
       </span>
     </Input>
     <Card v-for="item in items" class="card">
-      <p slot="extra">{{item.time}}</p>
+      <p slot="extra" style="
+    font-style: ITALIC;
+    color: #b3b3b3;">{{item.time}}</p>
       <div>
-        <router-link :to="{ name: 'person-info', params: { id: item.sendid }}">
+        <router-link target="_blank" :to="{ name: 'person-info', params: { id: item.sendid }}">
           @{{$store.getters.getnameById(item.sendid).label}}
         </router-link>
         : {{item.content}}
