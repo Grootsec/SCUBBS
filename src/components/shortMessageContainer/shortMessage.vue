@@ -61,21 +61,17 @@
       <p slot="title">
         <Avatar>A</Avatar>最热消息
       </p>
-      <a href="#" slot="extra" @click.prevent="changeLimit">
-        <Icon type="ios-loop-strong"></Icon>
-        这个地方就算了吧
-      </a>
-      <Table border :columns="columns1" :data="data1"></Table>
+      <ol style="margin: 0px 2rem;">
+        <li><a>123</a></li>
+      </ol>
     </Card>
     <Card>
       <p slot="title">
         <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg">A</Avatar>最热评论
       </p>
-      <a href="#" slot="extra" @click.prevent="changeLimit">
-        <Icon type="ios-loop-strong"></Icon>
-        测试
-      </a>
-      <span>软件学院</span>
+      <ol style="margin: 0px 2rem;">
+        <li><a>123</a></li>
+      </ol>
     </Card>
     </Col>
   </Row>
@@ -108,45 +104,7 @@ export default {
         username: 'tempuser'
       }],
       list2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      list1: [],
-      columns1: [{
-          title: 'Name',
-          key: 'name'
-        },
-        {
-          title: 'Age',
-          key: 'age'
-        },
-        {
-          title: 'Address',
-          key: 'address'
-        }
-      ],
-      data1: [{
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park',
-          date: '2016-10-03'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park',
-          date: '2016-10-01'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park',
-          date: '2016-10-02'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park',
-          date: '2016-10-04'
-        }
-      ]
+      list1: []
     }
   },
   methods: {
