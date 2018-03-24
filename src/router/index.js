@@ -9,9 +9,11 @@ import PersonInfo from "@/components/PersonInfo"
 import MessageBox from "@/components/shortMessageContainer/MessageBox.vue"
 // const PersonInfo = r => require.ensure([], () => r(require('../components/PersonInfo')), 'PersonInfo');
 const logout = r => require.ensure([], () => r(require('../components/logout')), 'logout');
+
 // const Component404 = require.ensure([], () => r(require('../components/404')), 'page404');
 import test from "@/components/test"
 import Organization from "@/components/Organization"
+import index2 from "@/components/index2"
 Vue.use(Router);
 
 export default new Router({
@@ -69,6 +71,11 @@ export default new Router({
       path: '/organization/:id',
       name: 'organization',
       component: Organization
+    },
+    {
+      path: '/xbb',
+      name: 'xbb',
+      component: index2
     }
   ]
 })
