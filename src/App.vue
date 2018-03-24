@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
-    <transition name="fade">
+<div id="app">
+  <transition name="fade">
     <router-view/>
-    </transition>
-  </div>
+  </transition>
+</div>
 </template>
 
 <script>
@@ -12,12 +12,18 @@ export default {
 }
 </script>
 
-<style scoped>
-
-.fade-enter-active, .fade-leave-active {
+<style>
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity .5s
 }
-.fade-enter, .fade-leave-active {
+
+.fade-enter,
+.fade-leave-active {
   opacity: 0
+}
+
+.ivu-avatar {
+  margin-right: 0.5rem;
 }
 </style>

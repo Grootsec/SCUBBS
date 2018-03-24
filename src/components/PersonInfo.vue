@@ -46,10 +46,6 @@
             <p slot="title">
               {{username}}的组织
             </p>
-            <a href="#" slot="extra" @click.prevent="changeLimit">
-              <Icon type="ios-loop-strong"></Icon>
-              Change
-            </a>
 
           </Card>
           </Col>
@@ -59,10 +55,6 @@
               <Icon type="ios-film-outline"></Icon>
               时间线
             </p>
-            <a href="#" slot="extra" @click.prevent="changeLimit">
-              <Icon type="ios-loop-strong"></Icon>
-              Change
-            </a>
             <timeline-bur>
               <timeline-item-bur :date="item.time" v-for="item of new_dynamic" :key="item.value" type="primary">
                 <p>{{filterContent(item.content)}}</p>
