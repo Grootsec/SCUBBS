@@ -41,8 +41,8 @@
         <Button type="info" long style="margin-bottom:10px">刷新</Button>
         <Card v-for="item in list" class="card">
           <p slot="title">
-            <Avatar :src="item.icon"></Avatar>
-            {{item.nickname}}
+            <Avatar v-if="item.sex=='男'" icon="man"></Avatar>
+            <Avatar v-if="item.sex=='女'" icon="woman"></Avatar>
           </p>
           <div slot="extra">
             <Button type="ghost" shape="circle" icon="heart" @click="like(item)">喜欢{{item.goodcount}}</Button>
@@ -81,7 +81,7 @@
       </Col>
     </Row>
     <Modal v-model="modal1" title="发帖">
-      <TextEdit></TextEdit>
+      <TextEdit :single=true :disable=true :type="1"></TextEdit>
       <div slot="footer">
       </div>
     </Modal>

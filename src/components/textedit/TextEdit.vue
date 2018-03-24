@@ -33,8 +33,8 @@
         <p>表白墙支持匿名</p>
       </div>
       <i-switch v-model="single" size="large" :disabled="disabled" style="position: relative;float: left;">
-        <span slot="open">匿名</span>
-        <span slot="close">实名</span>
+        <span slot="open" value=1>匿名</span>
+        <span slot="close" value=0>实名</span>
       </i-switch>
     </Tooltip>
     <RadioGroup v-model="location" style="position: relative;float: right;">
@@ -52,15 +52,21 @@ import AddressSelect from "../AddressSelect/AddressSelect"
 
 export default {
   props: {
-    single: 0,
+    single: {
+      type: Boolean,
+      default: false
+    },
     location: "全校",
     type: {
       default: "0",
+    },
+    disabled: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
-      disabled: true,
       postcontent: "",
       hiddencontent: "",
       atlist: [],
@@ -117,6 +123,12 @@ export default {
       console.log(anonymous);
       let location = this.location;
       let type = this.type;
+      if (anonymous) {
+        anonymous = 1;
+      } else {
+        anonymous = 0;
+      }
+
       this.$http.post("/api/v1/sendMessage", {
           content: this.submitcontent,
           isanonymous: anonymous,
