@@ -6,16 +6,10 @@
     <Content :style="{margin: '88px 70px 0', minHeight: '500px'}">
       <Row :gutter="16">
         <Col span="6">
-        <div>col-6</div>
+        <div>col-8</div>
         </Col>
         <Col span="6">
-        <div>col-6</div>
-        </Col>
-        <Col span="6">
-        <div>col-6</div>
-        </Col>
-        <Col span="6">
-        <div>col-6</div>
+        <div>col-16</div>
         </Col>
       </Row>
       <Row>
