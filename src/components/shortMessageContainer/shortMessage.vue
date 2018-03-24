@@ -43,8 +43,9 @@
           <Avatar :src="item.icon"></Avatar>{{item.nickname}}
         </p>
         <div slot="extra">
-          <Button type="ghost" shape="circle" icon="heart" @click="success">喜欢{{item.goodcount}}</Button>
-          <Button type="error" shape="circle" icon="fireball">举报{{item.badcount}}</Button>
+          <Button type="ghost" shape="circle" icon="heart" @click="like(item.messageid)">喜欢{{item.goodcount}}</Button>
+          <Button type="error" shape="circle" icon="fireball" @click="report(item.messageid)">举报{{item.badcount}}
+          </Button>
         </div>
         <Card>
           <div style="text-align:center">
@@ -147,6 +148,38 @@ export default {
     }
   },
   methods: {
+    report(id) {
+      this.$http.post("/api/v1/setMark", {
+        messageid: id,
+        type: 'bad',
+        option: 1
+      }).then(function (res) {
+        res = res.body;
+        if (res.code == 0) {
+          this.$Message.success({
+            content: '举报成功',
+            duration: 0.5,
+            closable: true
+          })
+        }
+      })
+    },
+    like(id) {
+      this.$http.post("/api/v1/setMark", {
+        messageid: id,
+        type: 'good',
+        option: 1
+      }).then(function (res) {
+        res = res.body;
+        if (res.code == 0) {
+          this.$Message.success({
+            content: '点赞成功',
+            duration: 0.5,
+            closable: true
+          })
+        }
+      })
+    },
     changeLimit() {},
     handleReachTop() {
       return new Promise(resolve => {
