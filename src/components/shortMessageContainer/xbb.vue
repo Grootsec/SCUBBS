@@ -160,7 +160,7 @@
       handleReachTop() {
         return new Promise(resolve => {
           setTimeout(() => {
-            resolve(this.$http.get('/api/v1/getMessageById?id=0&type=0')
+            resolve(this.$http.get('/api/v1/getMessageById?id=0&type=1')
               .then(function (res) {
                 this.list1 = res.body.info;
                 this.$Message.success({
@@ -176,7 +176,7 @@
         return new Promise(resolve => {
           setTimeout(() => {
             const last = this.list1[this.list1.length - 1];
-            resolve(this.$http.get('/api/v1/getMessageById?type=0&id=' + last.messageid)
+            resolve(this.$http.get('/api/v1/getMessageById?type=1&id=' + last.messageid)
               .then(function (res) {
                 if (res.body.code == 0) {
                   res.body.info.forEach(e => {
@@ -221,7 +221,7 @@
     },
     mounted() {
       this.changeLimit();
-      this.$http.get('/api/v1/getMessageById?id=0&type=0')
+      this.$http.get('/api/v1/getMessageById?id=0&type=1')
         .then(function (res) {
           this.list1 = res.body.info;
         });

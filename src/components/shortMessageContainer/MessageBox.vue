@@ -1,7 +1,15 @@
 <template lang="html">
   <Card class="card">
     <p slot="title">
-      <Avatar>U</Avatar>
+      <span v-if="post.sex==='男'">
+      <Avatar  icon="man"></Avatar> 某同学:男
+      </span>
+      <span  v-else-if="post.sex==='女'">
+      <Avatar icon="woman"></Avatar>某同学:女
+      </span>
+      <span v-else>
+      <Avatar >U</Avatar>{{getname(post.sendid)}}
+      </span>
     </p>
     <div slot="extra">
       <Button type="ghost" shape="circle" icon="heart" @click="like(post.messageid)">喜欢:{{post.goodcount}}</Button>
@@ -57,7 +65,7 @@
               });
               console.log(this.itemttt);
             }
-          })
+          });
         this.$forceUpdate();
       }
     },
@@ -75,9 +83,6 @@
       img_list() {
         return this.imgContent(this.post.content);
       },
-      items() {
-        return this.itemttt;
-      }
     },
     mounted() {
       this.$http.get('/api/v1/getCritical?messageid=' + this.post.messageid)
@@ -95,6 +100,10 @@
         })
     },
     methods: {
+      getname(sendid) {
+          return this.$store.getters.getnameById(sendid)
+            .label;
+      },
       report(id) {
         this.$http.post("/api/v1/setMark", {
           messageid: id,
