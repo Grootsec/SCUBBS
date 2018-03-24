@@ -1,160 +1,226 @@
 <template>
-  <div class="layout">
-    <headers></headers>
-    <Layout>
-      <Content :style="{margin: '88px 70px 0', minHeight: '500px'}">
-        <Row>
-          <Col span="4">
-          <Upload multiple type="drag" action="/">
-            <div>
-              <Avatar :src="avatar" size="large" v-if="avatar"></Avatar>
-              <Avatar icon="person" size="large" v-else="avatar"></Avatar>
+<div class="layout">
+  <headers></headers>
+  <BackTop></BackTop>
+  <Layout>
+    <Content :style="{margin: '88px 70px 0', minHeight: '500px'}">
+      <div>
+        <Row :gutter="16">
+          <Col span="8">
+          <Card class="tranCrad">
+            <p slot="title">
+              <Avatar size="large" :src="avatar"></Avatar>
+              <span v-if="!showEdit">{{username}}</span>
+              <span v-if="showEdit">
+                <Input v-model="username" placeholder="请输入昵称" style="width: auto"></Input>
+              </span>
+            </p>
+            <div slot="extra">
+              <a href="#" @click.prevent="changeInfo">
+                <Icon type="edit"></Icon>
+                修改
+              </a>
             </div>
-          </Upload>
-          </Col>
-          <Col span="4" offset="2" style="vertical-align: middle;">
-          <div style="vertical-align: middle">姓名: {{username}}</div>
-          </Col>
-          <Col span="4">
-          <div>学院: {{college}}</div>
-          </Col>
-          <Col span="4">
-          <div>专业: {{profession}}</div>
-          </Col>
-          <Col span="4">
-          <div>性别: {{sex}}</div>
-          </Col>
-        </Row>
-        <div class="border"></div>
-        <Row>
-          <label>设置nickname:</label>
-          <input v-model="nickname">
-          <lable>我的简介:</lable>
-          <Input v-model="introduction" type="textarea" :autosize="{minRows: 2}" placeholder="Enter something..."/>
-          <Button type="primary" @click="handleSubmit">保存修改</Button>
-        </Row>
-        <div class="border"></div>
-        <Row>
-          <h2>动态</h2>
-          <timeline-bur>
-            <timeline-item-bur :date="item.date" v-for="item of new_dynamic" :key="item.value" type="primary">
-              <p>{{item.content}}</p>
-            </timeline-item-bur>
-          </timeline-bur>
-        </Row>
-        <div class="border"></div>
-        <h2>我的组织 :测试</h2>
-        <Row>
-          <Col span="4">
-          <route-link to="/">
             <Card>
-              <p slot="title">The standard card</p>
-              <p>Content of card</p>
+              <table>
+                <tr>
+                  <td>姓名</td>
+                  <td>{{name}}</td>
+                </tr>
+                <tr>
+                  <td>性别</td>
+                  <td>{{sex}}</td>
+                </tr>
+                <tr>
+                  <td>年级</td>
+                  <td>{{grade}}</td>
+                </tr>
+                <tr>
+                  <td>学院</td>
+                  <td>{{college}}</td>
+                </tr>
+                <tr>
+                  <td>专业</td>
+                  <td>{{profession}}</td>
+                </tr>
+                <tr>
+                  <td>点赞</td>
+                  <td>{{vote}} 次</td>
+                </tr>
+              </table>
             </Card>
-          </route-link>
+            <Card style="margin-top: 0.5rem;">
+              <p v-if="!showEdit" style="text-align: center;">{{introduction}}</p>
+              <Input v-if="showEdit" v-model="introduction" type="textarea" :autosize="{minRows: 2}" placeholder="请输入您的简介"></Input>
+            </Card>
+            <div style="margin-top: 0.5rem;" v-if="showEdit">
+              <Button type="primary" shape="circle" long @click.prevent="handleSubmit">确定</Button>
+            </div>
+          </Card>
+          <div style="border-style: dashed;border-width: 1px;height: 1px;width: 100%;margin-top: 1rem;margin-bottom: 1rem;"></div>
+          <Card class="tranCrad">
+            <p slot="title">
+              我的组织
+            </p>
+            <Card v-for="team in teams" style="margin-bottom: 0.5rem;">
+              <p slot="title">
+                <Avatar size="large" :src="team.avatar"></Avatar>
+                {{team.teamname}}
+              </p>
+              <a :href="team.link" slot="extra" target="_blank">
+                <Icon type="forward"></Icon>
+                查看
+              </a>
+              <p style="text-align: center;">{{team.info}}</p>
+            </Card>
+          </Card>
           </Col>
-          <Col span="4" offset="2">
+          <Col span="16">
           <Card>
-            <p slot="title">The standard card</p>
-            <p>Content of card</p>
+            <p slot="title">
+              <Icon type="ios-film-outline"></Icon>
+              时间线
+            </p>
+            <timeline-bur>
+              <timeline-item-bur :date="item.date" v-for="item of items" type="primary">
+                <!-- <p>{{filterContent(item.content)}}</p> -->
+                <p>
+                  <span>{{item.contentType}}</span><span v-html="item.content" class="postinfo"></span>
+                </p>
+              </timeline-item-bur>
+            </timeline-bur>
           </Card>
           </Col>
         </Row>
-      </Content>
-    </Layout>
-    <ifooter></ifooter>
-  </div>
+      </div>
+    </Content>
+  </Layout>
+  <ifooter></ifooter>
+</div>
 </template>
 
 <script>
-  import headers from "./header/headers"
-  import ifooter from './footer/ifooter'
+import headers from "./header/headers"
+import ifooter from './footer/ifooter'
 
-  export default {
-    name: "setting",
-    data() {
-      return {
-        username: this.$store.state.info.name,
-        nickname: this.$store.state.info.nickname,
-        college: this.$store.state.info.college,
-        introduction: this.$store.state.info.introduction,
-        profession: this.$store.state.info.profession,
-        sex: this.$store.state.info.sex,
-        new_message: [],
-        new_secret_message: [],
-        new_dynamic: [{
-          "date": "2分钟前",
-          "content": "逼王真是强"
-        }, {
-          "date": "2分钟前",
-          "content": "逼王真是强"
-        }, {
-          "date": "1996/1/2",
-          "content": "逼王诞生于云南"
-        }, {
-          "date": "2分钟前",
-          "content": "逼王真是强"
-        }]
-      }
+export default {
+  name: "person-info",
+  data() {
+    return {
+      mynumber: this.$store.state.info.no,
+      showEdit: false,
+      name: "",
+      username: "",
+      nickname: "",
+      college: "",
+      avatar: "",
+      introduction: "",
+      profession: "",
+      grade: "",
+      sex: "",
+      vote: "",
+      items: [],
+      teams: []
+    }
+  },
+  components: {
+    headers,
+    ifooter
+  },
+  mounted() {
+    this.getUserInfo();
+  },
+  methods: {
+    changeInfo() {
+      this.showEdit = true;
     },
-    components: {
-      headers,
-      ifooter
-    },
-    mounted() {
-      this.getUserInfo();
-      // let responce = {"name":"孔旻昊", "nickname":"", "avatar":"https://i.loli.net/2017/08/21/599a521472424.jpg"};
-      // this.$store.commit("login", responce);
-    },
-    methods: {
-      getUserInfo() {
-        this.new_message.push({
-          "title": "测试",
-          "content": "测试消息内容"
-        })
-        // this.$http.get('/api/v1/').then(function(){
-        //
-        // })
-      },
-      handleSubmit() {
-        this.$http.post("/api/v1/updateObject", {
-          // icon: this.avatar,
+    handleSubmit() {
+      this.$http.post("/api/v1/updateObject", {
           id: this.$store.state.info.no,
-          name: this.nickname,
-          description: this.introduction,
-
+          name: this.username,
+          description: this.introduction
         })
-          .then(function (res) {
-
+        .then(function(res) {
+          this.$Notice.success({
+            title: '成功',
+            desc: '成功更新信息'
+          });
+          this.showEdit = false;
         })
-      }
     },
-    computed: {
-      avatar() {
-        return this.$store.state.info.avatar;
-      }
+    getUserInfo() {
+      this.$http.get('/api/v1/getuserinfo' + "?id=" + this.mynumber)
+        .then(function(res) {
+          res = res.body;
+          this.username = res.nickname;
+          this.avatar = res.avatar;
+          this.introduction = res.introduction;
+          this.college = res.academy;
+          this.sex = res.sex;
+          this.grade = res.grade;
+          this.profession = res.profession;
+          this.name = res.name;
+          if (res.message) {
+            res.message.forEach((e) => {
+              let msg = e.content.split("丨")[0];
+              this.$store.state.addressInfo.address.forEach((person) => {
+                msg = msg.replace('@' + person.value, '<a href="/#/user/' + person.value + '" target="_blank">@' + person.label + '</a>');
+              });
+              this.items.push({
+                "date": e.time,
+                "content": msg,
+                "contentType": '发消息: '
+              });
+            });
+          };
+          this.vote = res.mark.length - res.mark.filter((e) => {
+              if (e.type == 'good') {
+                return e;
+              }
+            })
+            .length;
+        });
+      this.$http.get('/api/v1/getTeamInfo' + '?studentnumber=' + this.mynumber)
+        .then((res) => {
+          res = res.body;
+          if (res.info) {
+            res.info.forEach((e) => {
+              let team = {
+                "teamname": e.name,
+                "avatar": e.icon,
+                "info": e.description,
+                "link": '/#/organization/' + e.id
+              };
+              this.teams.push(team);
+            });
+          }
+        });
+    },
+    filterContent(info) {
+      info = info.replace(/@(.*?) /g, ' ');
+      info = info.replace(/丨.*/g, ' ');
+      return info
     }
   }
+}
 </script>
 
-<style scoped>
-  .border {
-    border: 1px solid #e9eaec;
-    height: 1px;
-    transform: scaleY(.5);
-  }
+<style>
+.ivu-card-head {
+  background-color: #fff;
+}
 
-  .card {
-    margin: auto;
-    width: 40vw;
-  }
+.tranCrad {
+  background-color: rgba(0, 0, 0, 0);
+}
 
-  .ivu-card-head p,
-  .ivu-card-head-inner {
-    height: auto;
-  }
+.ivu-card-head p,
+.ivu-card-head-inner {
+  height: auto;
+}
 
-  .ivu-avatar {
-    margin-right: 0.5rem;
-  }
+.postinfo {
+  font-style: italic;
+  color: #b7b7b7;
+}
 </style>

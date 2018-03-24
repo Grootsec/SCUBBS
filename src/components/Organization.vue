@@ -11,8 +11,8 @@
         </p>
         <div style="text-align:center">
           <p>{{introduction}}</p>
-          <div style="border-style: dashed;border-width: 1px;height: 1px;width: 100%;margin-top: 1rem;margin-bottom: 1rem;"></div>
-          <h3 style="font-weight: bold;">组织人数: {{count}}</h3>
+          <!-- <div style="border-style: dashed;border-width: 1px;height: 1px;width: 100%;margin-top: 1rem;margin-bottom: 1rem;"></div>
+          <h3 style="font-weight: bold;">组织人数: {{count}}</h3> -->
           <Button type="success" @click="apply" long>申请加入</Button>
         </div>
       </Card>
