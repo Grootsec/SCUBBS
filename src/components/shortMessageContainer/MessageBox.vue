@@ -5,7 +5,7 @@
     </p>
     <div slot="extra">
       <Button type="ghost" shape="circle" icon="heart" @click="like(post.messageid)">喜欢:{{post.goodcount}}</Button>
-      <Button type="error" shape="circle" icon="fireball">举报:{{post.badcount}}</Button>
+      <Button type="error" shape="circle" icon="fireball" @click="report(post.messageid)">举报:{{post.badcount}}</Button>
     </div>
     <Card class="card">
       <div>
@@ -37,7 +37,7 @@
 <script>
 export default {
   props: {
-    post: [],
+    post: {},
   },
   data() {
     return ({
@@ -45,6 +45,23 @@ export default {
     })
   },
   methods: {
+    report(id) {
+      this.$http.post("/api/v1/setMark", {
+        messageid: id,
+        type: 'bad',
+        option: 1
+      }).then(function (res) {
+        res = res.body;
+        if (res.code == 0) {
+          this.post.badcount = res.count;
+          this.$Message.success({
+            content: '举报成功',
+            duration: 0.5,
+            closable: true
+          })
+        }
+      })
+    },
     like(id){
       this.$http.post("/api/v1/setMark",{
         messageid: id,
@@ -52,7 +69,14 @@ export default {
         option: 1
       }).then(function(res){
         res = res.body;
-
+        if (res.code == 0) {
+          this.post.goodcount = res.count;
+          this.$Message.success({
+            content: '点赞成功',
+            duration: 0.5,
+            closable: true
+          })
+        }
       })
     },
     handleView(name) {
