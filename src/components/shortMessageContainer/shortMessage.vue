@@ -35,6 +35,9 @@
       </table>
     </Card>
     <Button type="primary" @click="modal1 = true" long>发消息</Button>
+    <router-link to="/ApplyOrganization" tag="span">
+      <Button type="info" style="margin-top:1rem;" long>创建组织</Button>
+    </router-link>
     </Col>
     <Col span="12" class="center-container hide-parent">
     <Scroll class="hide-child" :on-reach-top="handleReachTop" :on-reach-bottom="handleReachBottom">
@@ -105,7 +108,7 @@ export default {
       items: [{
         username: 'tempuser'
       }],
-      list2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      list2: [],
       list1: [],
       hotInfo: [],
       comment_info: []
