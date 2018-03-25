@@ -3,7 +3,7 @@
   <headers></headers>
   <div class="layout">
     <Layout>
-      <Content :style="{minHeight: '500px'}" class="layoutC">
+      <Content :style="{minHeight: '500px'}" class="layoutC layoutM">
         <shortMessage></shortMessage>
       </Content>
     </Layout>
@@ -32,7 +32,12 @@ export default {
 <style scoped>
 @media (min-width: 600px) {
   .layoutC {
-    margin: 88px 70px 0;
+    margin-left: 70px;
+    margin-right: 70px;
   }
+}
+
+.layoutM {
+  margin-top: 88px;
 }
 </style>

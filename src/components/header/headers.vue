@@ -1,7 +1,7 @@
 <template>
 <div class="layout">
   <Layout>
-    <Header :style="{position: 'fixed', width: '100%', zIndex: '1'}">
+    <Header :style="{position: 'fixed', width: '100%', zIndex: '1'}" class="ivu-layout-header-m">
       <Menu mode="horizontal" :theme="theme1" active-name="1">
         <div class="layout-nav">
           <Row>
@@ -129,7 +129,7 @@ export default {
 };
 </script>
 
-<style media="screen">
+<style scoped>
 .float-left {
   position: relative;
   float: right;
@@ -144,5 +144,11 @@ export default {
   position: relative;
   overflow: hidden;
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  .ivu-layout-header-m {
+    padding: 0 !important;
+  }
 }
 </style>
