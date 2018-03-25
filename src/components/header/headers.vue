@@ -48,10 +48,10 @@
         <div class="float-left">
           <MenuItem name="4">
           <!--<router-link to="/setting" style="color: rgba(255,255,255,.7);">-->
-          <Badge :count="count" dot>
+          <!-- <Badge :count="count" dot>
             <Avatar :src="avatar" v-if="avatar" />
             <Avatar icon="person" v-else="avatar" />
-          </Badge>
+          </Badge> -->
           <Dropdown>
             <span>
                 <span v-if="nickname">{{$store.state.info.nickname}}</span>
