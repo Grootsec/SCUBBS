@@ -3,7 +3,7 @@
   <headers></headers>
   <div class="layout">
     <Layout>
-      <Content :style="{margin: '88px 70px 0', minHeight: '500px'}">
+      <Content :style="{minHeight: '500px'}" class="layoutC">
         <shortMessage></shortMessage>
       </Content>
     </Layout>
@@ -30,5 +30,9 @@ export default {
 </script>
 
 <style scoped>
-
+@media (min-width: 600px) {
+  .layoutC {
+    margin: 88px 70px 0;
+  }
+}
 </style>

@@ -4,27 +4,46 @@
     <Header :style="{position: 'fixed', width: '100%', zIndex: '1'}">
       <Menu mode="horizontal" :theme="theme1" active-name="1">
         <div class="layout-nav">
-          <MenuItem name="0">
-          <router-link to="/SCUBBS" tag="span">
-            <h1>SCUBBS</h1>
-          </router-link>
-          </MenuItem>
-          <MenuItem name="1">
-          <router-link to="/" tag="span">
-            <Icon type="ios-paper"></Icon>青春广场
-          </router-link>
-          </MenuItem>
-          <MenuItem name="2">
-          <router-link to="/xbb" tag="span">
-            <Icon type="ios-people"></Icon>瞎BB
-          </router-link>
-          </MenuItem>
-          <MenuItem name="3">
-          <router-link to="/bbq" tag="span">
-            <Icon type="heart"></Icon>表白墙
-          </router-link>
-          </MenuItem>
-          </span>
+          <Row>
+            <Col :xs="24" :md="0">
+            <Submenu name="5">
+              <template slot="title">
+                <span style="font-size: x-large;">SCUBBS</span>
+              </template>
+              <router-link to="/" tag="span">
+                <MenuItem name="3-1">青春广场</MenuItem>
+              </router-link>
+              <router-link to="/xbb" tag="span">
+                <MenuItem name="3-2">瞎BB</MenuItem>
+              </router-link>
+              <router-link to="/bbq" tag="span">
+                <MenuItem name="3-3">表白墙</MenuItem>
+              </router-link>
+            </Submenu>
+            </Col>
+            <Col :xs="0" :md="24">
+            <MenuItem name="0">
+            <router-link to="/SCUBBS" tag="span">
+              <h1>SCUBBS</h1>
+            </router-link>
+            </MenuItem>
+            <MenuItem name="1">
+            <router-link to="/" tag="span">
+              <Icon type="ios-paper"></Icon>青春广场
+            </router-link>
+            </MenuItem>
+            <MenuItem name="2">
+            <router-link to="/xbb" tag="span">
+              <Icon type="ios-people"></Icon>瞎BB
+            </router-link>
+            </MenuItem>
+            <MenuItem name="3">
+            <router-link to="/bbq" tag="span">
+              <Icon type="heart"></Icon>表白墙
+            </router-link>
+            </MenuItem>
+            </Col>
+          </Row>
         </div>
         <div class="float-left">
           <MenuItem name="4">
@@ -35,7 +54,7 @@
           </Badge>
           <Dropdown>
             <span>
-            <span v-if="nickname">{{$store.state.info.nickname}}</span>
+                <span v-if="nickname">{{$store.state.info.nickname}}</span>
             <span v-else="nickname">{{$store.state.info.name}}</span>
             <Icon type="arrow-down-b"></Icon>
             </span>
@@ -68,14 +87,14 @@ export default {
       name: this.$store.state.info.name,
       nickname: this.$store.state.info.nickname,
       show_login: false,
-      count_temp : 0
+      count_temp: 0
     }
   },
   computed: {
     avatar: function() {
       return this.$store.state.info.avatar
     },
-    count(){
+    count() {
       return this.count_temp;
     }
   },
@@ -102,15 +121,28 @@ export default {
           this.$store.commit("fetchAddressInfo", res);
         })
     }
-    this.$http.get('/api/v1/getAtNumber').then(function(res){
-      this.count_temp = res.body.count;
-    })
+    this.$http.get('/api/v1/getAtNumber')
+      .then(function(res) {
+        this.count_temp = res.body.count;
+      })
   }
 };
 </script>
 
 <style media="screen">
 .float-left {
+  position: relative;
   float: right;
+}
+
+.layout-nav {
+  position: relative;
+  float: left;
+}
+
+.ivu-menu.ivu-menu-dark.ivu-menu-horizontal {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
 }
 </style>

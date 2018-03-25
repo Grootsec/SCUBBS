@@ -1,7 +1,28 @@
 <template>
 <Layout>
-  <Row>
-    <Col span="6">
+  <Row style="position: absolute;z-index: 1;">
+    <Col :xs="0" :sm="0" :md="0">
+    <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
+      <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses">
+        <MenuItem name="1-1">
+        <Icon type="ios-navigate"></Icon>
+        <span v-on:click="this.showmain">广场</span>
+        </MenuItem>
+        <MenuItem name="1-2">
+        <Icon type="ios-navigate"></Icon>
+        <span v-on:click="this.showhot">热度</span>
+        </MenuItem>
+        <MenuItem name="1-3">
+        <Icon type="ios-navigate"></Icon>
+        <span v-on:click="this.showme">关于我</span>
+        </MenuItem>
+      </Menu>
+      <div slot="trigger"></div>
+    </Sider>
+    </Col>
+  </Row>
+  <Row :v-show="this.main">
+    <Col :xs="0" :sm="0" :md="6">
     <Card>
       <p slot="title">
         <Avatar :src="$store.state.info.avatar"></Avatar>
@@ -39,7 +60,7 @@
       <Button type="info" style="margin-top:1rem;" long>创建组织</Button>
     </router-link>
     </Col>
-    <Col span="12" class="center-container hide-parent">
+    <Col :xs="24" :sm="24" :md="12" class="center-container hide-parent">
     <Scroll class="hide-child" :on-reach-top="handleReachTop" :on-reach-bottom="handleReachBottom">
       <Button type="info" long style="margin-bottom:10px">刷新</Button>
       <Card v-for="item in list" class="card">
@@ -60,7 +81,7 @@
       </Card>
     </Scroll>
     </Col>
-    <Col span="6">
+    <Col :xs="0" :sm="0" :md="6">
     <Card>
       <p slot="title">
         <Avatar>A</Avatar>最热消息
@@ -80,6 +101,67 @@
     </Card>
     </Col>
   </Row>
+  <!-- <Row :v-show="hot">
+    <Col>
+    <Card>
+      <p slot="title">
+        <Avatar>A</Avatar>最热消息
+      </p>
+      <ol style="margin: 0px 2rem;">
+        <li v-for="(item,index) in hotInfo" :key="index" v-if="item"><a @click="handleMoreClick(item)">{{filterContent(item.content)}}</a>
+        </li>
+      </ol>
+    </Card>
+    <Card>
+      <p slot="title">
+        <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg">A</Avatar>最热评论
+      </p>
+      <ol style="margin: 0px 2rem;">
+        <li v-for="(item, index) in comment_info" :key="index" v-if="item">{{item.content}}</li>
+      </ol>
+    </Card>
+    </Col>
+  </Row>
+  <Row :v-show="me">
+    <Col>
+    <Card>
+      <p slot="title">
+        <Avatar :src="$store.state.info.avatar"></Avatar>
+        {{$store.state.info.name}}
+      </p>
+      <router-link slot="extra" to="/setting">
+        <Icon type="ios-loop-strong"></Icon>
+        设置
+      </router-link>
+      <table>
+        <tr>
+          <td>姓名</td>
+          <td>{{$store.state.info.name}}</td>
+        </tr>
+        <tr>
+          <td>昵称</td>
+          <td>{{$store.state.info.nickname}}</td>
+        </tr>
+        <tr>
+          <td>发消息数</td>
+          <td>{{$store.state.info.messageCount}}</td>
+        </tr>
+        <tr>
+          <td>获得的赞</td>
+          <td>{{$store.state.info.beMarkCount}}</td>
+        </tr>
+        <tr>
+          <td>获得的评论数</td>
+          <td>{{$store.state.info.beCriticalCount}}</td>
+        </tr>
+      </table>
+    </Card>
+    <Button type="primary" @click="modal1 = true" long>发消息</Button>
+    <router-link to="/ApplyOrganization" tag="span">
+      <Button type="info" style="margin-top:1rem;" long>创建组织</Button>
+    </router-link>
+    </Col>
+  </Row> -->
   <Modal v-model="modal1" title="发帖">
     <TextEdit></TextEdit>
     <div slot="footer">
@@ -100,6 +182,9 @@ import MessageBox from './MessageBox.vue';
 export default {
   data() {
     return {
+      main: true,
+      hot: false,
+      me: false,
       modal1: false,
       modal2: false,
       refreshid: 1,
@@ -115,6 +200,21 @@ export default {
     }
   },
   methods: {
+    showmain() {
+      this.main = true;
+      this.hot = false;
+      this.me = false;
+    },
+    showhot() {
+      this.main = false;
+      this.hot = true;
+      this.me = false;
+    },
+    showme() {
+      this.main = false;
+      this.hot = false;
+      this.me = true;
+    },
     getname(item) {
       if (!item) {
         console.log(item);
