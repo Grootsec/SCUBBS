@@ -76,7 +76,7 @@ export default {
     return ({
       visible: false,
       comment_content: '',
-      itemttt: []
+      itemttt: [1]
     })
   },
   computed: {

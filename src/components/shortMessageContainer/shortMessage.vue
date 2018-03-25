@@ -108,7 +108,7 @@ export default {
       items: [{
         username: 'tempuser'
       }],
-      list2: [],
+      list2: [1],
       list1: [],
       hotInfo: [],
       comment_info: []
