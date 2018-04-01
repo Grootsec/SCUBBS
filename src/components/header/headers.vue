@@ -58,7 +58,7 @@
             <span v-else="nickname">{{$store.state.info.name}}</span>
             <Icon type="arrow-down-b"></Icon>
             </span>
-            <DropdownMenu slot="list">
+            <DropdownMenu slot="list" trigger="click">
               <router-link v-if="!show_login" to="/setting" tag="span">
                 <DropdownItem>设置</DropdownItem>
               </router-link>
