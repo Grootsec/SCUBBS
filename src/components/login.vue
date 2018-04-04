@@ -1,7 +1,7 @@
 <template>
   <div class="dialog">
     <div class="loginPage">
-      <h1>SCUBBS登录</h1>
+      <h1>SCUCC登录</h1>
       <el-form>
         <el-form-item label="学号">
           <el-input type="text" id="user" v-model="formName.user"></el-input>

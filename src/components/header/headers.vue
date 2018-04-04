@@ -8,7 +8,7 @@
             <Col :xs="24" :md="0">
             <Submenu name="5">
               <template slot="title">
-                <span style="font-size: x-large;">SCUBBS</span>
+                <span style="font-size: x-large;">SCUCC</span>
               </template>
               <router-link to="/" tag="span">
                 <MenuItem name="3-1">青春广场</MenuItem>
@@ -23,8 +23,8 @@
             </Col>
             <Col :xs="0" :md="24">
             <MenuItem name="0">
-            <router-link to="/SCUBBS" tag="span">
-              <h1>SCUBBS</h1>
+            <router-link to="/SCUCC" tag="span">
+              <h1>SCUCC</h1>
             </router-link>
             </MenuItem>
             <MenuItem name="1">
@@ -47,11 +47,12 @@
         </div>
         <div class="float-left">
           <MenuItem name="4">
-          <!--<router-link to="/setting" style="color: rgba(255,255,255,.7);">-->
-          <!-- <Badge :count="count" dot>
-            <Avatar :src="avatar" v-if="avatar" />
-            <Avatar icon="person" v-else="avatar" />
-          </Badge> -->
+          <router-link to="/setting" style="color: rgba(255,255,255,.7);">
+            <Badge :count="count" dot>
+              <Avatar :src="avatar" v-if="avatar" />
+              <Avatar icon="person" v-else="avatar" />
+            </Badge>
+          </router-link>
           <Dropdown>
             <span>
                 <span v-if="nickname">{{$store.state.info.nickname}}</span>
@@ -70,7 +71,6 @@
               </router-link>
             </DropdownMenu>
           </Dropdown>
-          <!--</router-link>-->
           </MenuItem>
         </div>
       </Menu>
