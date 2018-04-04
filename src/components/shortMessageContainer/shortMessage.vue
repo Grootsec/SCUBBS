@@ -84,7 +84,7 @@
     <Col :xs="0" :sm="0" :md="6">
     <Card>
       <p slot="title">
-        <Avatar>A</Avatar>最热消息
+        <Avatar>HOT</Avatar>最热消息
       </p>
       <ol style="margin: 0px 2rem;">
         <li v-for="(item,index) in hotInfo" :key="index" v-if="item"><a @click="handleMoreClick(item)">{{filterContent(item.content)}}</a>
@@ -93,7 +93,7 @@
     </Card>
     <Card>
       <p slot="title">
-        <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg">A</Avatar>最热评论
+        <Avatar>NEW</Avatar>最新评论
       </p>
       <ol style="margin: 0px 2rem;">
         <li v-for="(item, index) in comment_info" :key="index" v-if="item">{{item.content}}</li>
@@ -351,28 +351,28 @@ export default {
 }
 </script>
 
-<style media="screen">
-.center-container {
-  padding: 0px 1rem;
-}
-
+<style scoped>
 .card {
   width: 100%;
-}
-
-.ivu-card-bordered {
-  margin-bottom: 1rem;
 }
 
 .ivu-card-head p,
 .ivu-card-head-inner {
   height: auto;
 }
+</style>
 
-.ivu-card-footer {}
+<style media="screen">
+.center-container {
+  padding: 0px 1rem;
+}
 
 .hide-parent {
   overflow: hidden;
+}
+
+.ivu-card-bordered {
+  margin-bottom: 1rem;
 }
 
 .hide-child {

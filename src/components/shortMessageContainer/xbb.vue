@@ -262,7 +262,7 @@ export default {
 }
 </script>
 
-<style media="screen">
+<style scoped>
 @keyframes boymove {
   0% {
     background-color: #9b9b9b;
@@ -340,5 +340,16 @@ export default {
 
 .ivu-avatar {
   margin-right: 0.5rem;
+}
+</style>
+
+<style scoped>
+.card {
+  width: 100%;
+}
+
+.ivu-card-head p,
+.ivu-card-head-inner {
+  height: auto;
 }
 </style>
